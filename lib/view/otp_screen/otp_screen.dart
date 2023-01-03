@@ -85,7 +85,9 @@ class _OtpScreenState extends State<OtpScreen> {
                     // AppSizedBoxes.sizedboxH50,
                     Consumer<OtpController>(builder: (context, values, _) {
                       return values.loading == true
-                          ? const LoadingWidget()
+                          ? const LoadingWidget(
+                              color: Colors.white,
+                            )
                           : CustomElevateButton(
                               text: 'Verify',
                               onpressed: () => values.verifyCode(

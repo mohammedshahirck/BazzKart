@@ -6,4 +6,9 @@ class ApiEndPoints {
   static const forgetPassword = 'auth/password';
   static const refreshToken = 'auth/refresh';
   static const googleSignIn = 'auth/google';
+  static const categories = 'category';
+  static const carousal = 'carousal';
+  static const product = 'products';
+  static const wishList = 'wishlist';
+  static const cart = 'cart';
 }

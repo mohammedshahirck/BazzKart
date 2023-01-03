@@ -33,7 +33,7 @@ class ForgetPassword extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 40),
                     // EdgeInsets.fromLTRB(6 * fem, 0 * fem, 0 * fem, 0 * fem),
                     child: Text(
-                      '\t\t   FORGET\n \tPASSWORD',
+                      '\t\t   FORGOT\n \tPASSWORD',
                       style: SafeGoogleFont(
                         'Metropolis',
                         fontSize: 34 * ffem,
@@ -75,15 +75,17 @@ class ForgetPassword extends StatelessWidget {
                     Consumer<ForgetController>(
                         builder: (context, value, child) {
                       return value.isLoading == true
-                          ? const LoadingWidget()
+                          ? const LoadingWidget(
+                              color: Colors.black,
+                            )
                           : CustomElevateButton(
                               size: 14 * ffem,
                               text: 'Continue',
                               onpressed: () {
-                                // value.toOtpScreen(
-                                //   context,
-                                //   value.formKey.currentState!,
-                                // );
+                                value.toOtpScreen(
+                                  context,
+                                  value.formKey.currentState!,
+                                );
                               },
                             );
                     }),

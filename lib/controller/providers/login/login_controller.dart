@@ -35,7 +35,7 @@ class LoginController extends ChangeNotifier {
           await storage.write(key: 'token', value: value.accessToken);
           await storage.write(key: 'refreshToken', value: value.refreshToken);
           Navigator.of(context)
-              .pushNamedAndRemoveUntil(RouteNames.homePage, (route) => false);
+              .pushNamedAndRemoveUntil(RouteNames.bottomNav, (route) => false);
           clearFields();
           isLoading = false;
           notifyListeners();

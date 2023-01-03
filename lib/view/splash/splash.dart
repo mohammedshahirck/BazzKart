@@ -1,4 +1,4 @@
-import 'package:ecommerce/controller/providers/splash.dart';
+import 'package:ecommerce/controller/providers/splash/splash.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
 import 'package:ecommerce/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,9 @@ class SplashScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const LoadingWidget(),
+            const LoadingWidget(
+              color: Colors.white,
+            ),
             Ksize.ksize20,
             Ksize.ksize20,
           ],

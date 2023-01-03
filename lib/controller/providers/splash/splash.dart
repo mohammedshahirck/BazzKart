@@ -17,7 +17,7 @@ class SplashController extends ChangeNotifier {
     log(signInstate.toString());
     if (signInstate != null) {
       Navigator.pushNamedAndRemoveUntil(
-          context, RouteNames.homePage, (route) => false);
+          context, RouteNames.bottomNav, (route) => false);
     } else {
       await Navigator.pushNamedAndRemoveUntil(
           context, RouteNames.loginPage, (route) => false);
