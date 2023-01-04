@@ -1,13 +1,22 @@
+import 'dart:developer';
+
 import 'package:ecommerce/model/product/product_model.dart';
 import 'package:ecommerce/routes/route_names.dart';
 import 'package:ecommerce/services/home/home_product.dart';
+import 'package:ecommerce/utils/api_base_url.dart';
+import 'package:ecommerce/view/detail_page/detail_page.dart';
+import 'package:ecommerce/view/detail_page/utils/product_id_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class HomeProductController with ChangeNotifier {
   HomeProductController() {
     getProducts();
+    sizeChartIndex = 0;
+    notifyListeners();
   }
   int? sizeChartIndex;
+  int selectedImage = 0;
   bool isLoading = false;
   List<ProductModel> productList = [];
   ProductModel? product;
@@ -19,8 +28,21 @@ class HomeProductController with ChangeNotifier {
     notifyListeners();
   }
 
+  // void toProductScreen(context, productId) {
+  //   final args = ProductIdModel(productId: productId);
+  //   Navigator.of(context).pushNamed(
+  //     ProductDetailPage.routeNames,
+  //     arguments: args,
+  //   );
+  // }
+
   void goToCart(BuildContext context) {
-    Navigator.of(context).pushNamed(RouteNames.cartpage);
+    if (sizeChartIndex == null) {
+      BazzToast.showToast('Please select size', Colors.red);
+    } else {
+      log('going to cart');
+      Navigator.of(context).pushNamed(RouteNames.cartpage);
+    }
   }
 
   void getProducts() async {
@@ -41,10 +63,10 @@ class HomeProductController with ChangeNotifier {
     );
   }
 
-  void sizeSelect(int index) {
+  void sizeSelect(int index, String size) {
     sizeChartIndex = index;
     notifyListeners();
-    productSize = product?.size[index].toString();
+    productSize = size;
     notifyListeners();
   }
 
@@ -56,5 +78,10 @@ class HomeProductController with ChangeNotifier {
     return productList.where((prod) {
       return prod.categoryId.contains(categoryid);
     }).toList();
+  }
+
+  void selectTap(int index) {
+    selectedImage = index;
+    notifyListeners();
   }
 }

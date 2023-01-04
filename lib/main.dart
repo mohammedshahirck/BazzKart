@@ -64,15 +64,13 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.light().copyWith(
+        theme: ThemeData().copyWith(
+          useMaterial3: false,
           appBarTheme:
               const AppBarTheme(iconTheme: IconThemeData(color: Colors.black)),
-          // primaryColor: Colors.black,
           colorScheme: ThemeData().colorScheme.copyWith(primary: Colors.grey),
           errorColor: Colors.red,
         ),
-        darkTheme: ThemeData.dark(),
-        themeMode: ThemeMode.system,
         onGenerateRoute: (settings) => PageRouts.generateRoute(settings),
         home: const SplashScreen(),
         routes: {

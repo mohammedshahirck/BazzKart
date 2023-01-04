@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class Ksize {
   static const ksize20 = SizedBox(height: 20);
   static const ksize10 = SizedBox(height: 10);
+  static const ksize5 = SizedBox(height: 5);
   static const kWsize10 = SizedBox(width: 10);
+  static const kWsize20 = SizedBox(width: 20);
   static const ksize30 = SizedBox(height: 30);
   static const ksize40 = SizedBox(height: 40);
   static const ksize50 = SizedBox(height: 50);

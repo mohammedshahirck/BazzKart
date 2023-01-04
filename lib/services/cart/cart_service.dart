@@ -24,7 +24,7 @@ class CartService {
         final cartResponse = response.data['message'];
         return cartResponse;
       }
-    } on DioError catch (e) {
+    } catch (e) {
       BazzException.errorHandler(e);
     }
     return null;
@@ -63,7 +63,7 @@ class CartService {
     return null;
   }
 
-  Future<String?> removeFromCart(id) async {
+  Future<String?> removeFromCart(String id) async {
     Dio dio = await Interceptorapi().getApiUser();
     try {
       final Response response = await dio.patch(

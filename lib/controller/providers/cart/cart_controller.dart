@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 class CartController extends ChangeNotifier {
   CartController() {
+    startLoading();
     getCart();
   }
   int? sizeChartIndex;
@@ -18,6 +19,12 @@ class CartController extends ChangeNotifier {
   List<String> cartitemsPayId = [];
   CartModel? cartList;
   int? totalSave;
+  int? totalProductCount;
+
+  void startLoading() {
+    isLoading = true;
+    notifyListeners();
+  }
 
   void getCart() async {
     isLoading = true;
@@ -30,7 +37,9 @@ class CartController extends ChangeNotifier {
 
           log('get cart');
           cartItemsId = cartList!.products.map((e) => e.product.id).toList();
-          totalSave = (cartList!.totalPrice - cartList!.totalDiscount).toInt();
+          cartitemsPayId = cartList!.products.map((e) => e.id).toList();
+          totalSave =
+              (cartList!.totalPrice.toInt() - cartList!.totalDiscount).toInt();
           notifyListeners();
           isLoading = false;
           notifyListeners();
@@ -42,10 +51,8 @@ class CartController extends ChangeNotifier {
     );
   }
 
-  void addToCart(String productId, String? productSize,
+  Future<void> addToCart(String productId, String? productSize,
       OrderSummaryScreenEnum? screencheck) async {
-    isLoading = true;
-    notifyListeners();
     log('addtocart');
     if (productSize == null) {
       BazzToast.showToast('Select Size', Colors.grey);
@@ -58,17 +65,33 @@ class CartController extends ChangeNotifier {
       await CartService().addToCart(model).then((value) {
         if (value != null) {
           getCart();
-        }
-        if (value == "product added to cart successfully") {
-          log('addtocart');
-          screencheck != OrderSummaryScreenEnum.buyOneProductOrderSummaryScreen
-              ? BazzToast.showToast("Product added to cart", Colors.grey)
-              : null;
+
+          if (value == "product added to cart successfully") {
+            log('addtocart');
+            screencheck !=
+                    OrderSummaryScreenEnum.buyOneProductOrderSummaryScreen
+                ? BazzToast.showToast(
+                    "Product added to cart",
+                    Colors.grey,
+                  )
+                : null;
+          } else {
+            null;
+          }
         } else {
           null;
         }
       });
     }
+  }
+
+  void totalProduct() {
+    int count = 0;
+    for (var i = 0; i < cartList!.products.length; i++) {
+      count = count + cartList!.products[i].qty;
+    }
+    totalProductCount = count;
+    notifyListeners();
   }
 
   void removeFromCart(String productId) async {
@@ -87,5 +110,44 @@ class CartController extends ChangeNotifier {
         return;
       }
     });
+  }
+
+  Future<void> incrementOrDecrementQuantity(
+    int qty,
+    String productId,
+    String productSize,
+    int productquantity,
+  ) async {
+    final AddToCartModel model = AddToCartModel(
+      size: productSize.toString(),
+      quantity: qty,
+      productId: productId,
+    );
+    if (qty == 1 && productquantity >= 1 || qty == -1 && productquantity > 1) {
+      await CartService().addToCart(model).then((value) async {
+        if (value != null) {
+          await CartService().getCart().then((value) {
+            if (value != null) {
+              cartList = value;
+              notifyListeners();
+              totalProduct();
+              notifyListeners();
+              cartItemsId =
+                  cartList!.products.map((e) => e.product.id).toList();
+              notifyListeners();
+              totalSave =
+                  cartList!.totalDiscount - cartList!.totalPrice.toInt();
+              notifyListeners();
+            } else {
+              null;
+            }
+          });
+        } else {
+          null;
+        }
+      });
+    } else {
+      null;
+    }
   }
 }

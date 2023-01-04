@@ -44,30 +44,12 @@ class ProductList extends StatelessWidget {
                               .withOpacity(1),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        height: 210,
+                        height: 200,
                         width: 160,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                // onTap: () =>
-                                // values2.addOrRemoveFromWishList(
-                                // values.product!.id[index]),
-                                child: Icon(
-                                  values2.favorProduct
-                                          .contains(values.product?.id)
-                                      ? Icons.favorite
-                                      : Icons.favorite_outline_outlined,
-                                  color: values2.favorProduct
-                                          .contains(values.product?.id)
-                                      ? Colors.red
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
                             Image.network(
                               "http://${MainUrls.url}/products/${values.productList[index].image[0]}",
                               height: 170,
@@ -95,7 +77,7 @@ class ProductList extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "₹${values.productList[index].discountPrice.toString()}",
+                              "₹${((values.productList[index].price) - (values.productList[index].discountPrice)).toString()}",
                               style: const TextStyle(),
                             ),
                           ],

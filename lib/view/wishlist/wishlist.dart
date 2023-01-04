@@ -3,6 +3,7 @@ import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
+import 'package:ecommerce/view/detail_page/detail_page.dart';
 import 'package:ecommerce/view/wishlist/widget/no_wishlist.dart';
 import 'package:ecommerce/widgets/loading.dart';
 import 'package:ecommerce/widgets/text_style.dart';
@@ -80,35 +81,33 @@ class Favorites extends StatelessWidget {
                         width: double.infinity,
                         child: const Center(child: ReloadWishlist()),
                       )
-                    : Expanded(
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.only(left: 20, top: 20),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 1,
-                            childAspectRatio: 1.1 / 2,
-                          ),
-                          // itemCount: ,
-                          itemCount: wishvalue.wishList!.products.length,
-                          itemBuilder: (context, index) {
-                            log('gridview');
-                            return SizedBox(
-                              width: 170,
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.only(left: 20, top: 20),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 1,
+                          childAspectRatio: 1.1 / 2,
+                        ),
+                        // itemCount: ,
+                        itemCount: wishvalue.wishList!.products.length,
+                        itemBuilder: (context, index) {
+                          log('gridview');
+                          return GestureDetector(
+                            onTap: () => Navigator.of(context).pushNamed(
+                              ProductDetailPage.routeNames,
+                              arguments: wishvalue
+                                  .wishList!.products[index].product.id,
+                            ),
+                            child: SizedBox(
+                              width: 210,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Container(
                                       decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          alignment: Alignment.bottomCenter,
-                                          image: NetworkImage(
-                                              "http://${MainUrls.url}/products/${wishvalue.wishList!.products[index].product.image[0]}"
-                                              // "http://${MainUrls.url}/products/${values.productList[index].image[0]}",
-                                              ),
-                                        ),
                                         color: const Color.fromARGB(
                                                 255, 233, 231, 231)
                                             .withOpacity(1),
@@ -118,7 +117,66 @@ class Favorites extends StatelessWidget {
                                           MediaQuery.of(context).size.height *
                                               .29,
                                       width: MediaQuery.of(context).size.width *
-                                          .43
+                                          .43,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: GestureDetector(
+                                              onTap: () => showDialog<String>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  title: const Text(
+                                                      ' Remove from wishlist?'),
+                                                  content: const Text(
+                                                      'Are you sure to delete this product from wishlist?'),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              context, 'NO'),
+                                                      child: const Text('No'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        wishvalue
+                                                            .addRemoveWishlistItem(
+                                                                wishvalue
+                                                                    .wishList!
+                                                                    .products[
+                                                                        index]
+                                                                    .product
+                                                                    .id);
+                                                        Navigator.pop(
+                                                          context,
+                                                          'Yes',
+                                                        );
+                                                      },
+                                                      child: const Text('Yes'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              child: Icon(
+                                                Icons.favorite,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ),
+                                          Image.network(
+                                            "http://${MainUrls.url}/products/${wishvalue.wishList!.products[index].product.image[0]}",
+                                            height: 170,
+                                          )
+                                        ],
+                                      )
                                       //  170,
                                       ),
                                   Padding(
@@ -153,9 +211,9 @@ class Favorites extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       );
           }),
         ],

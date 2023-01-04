@@ -2,6 +2,7 @@ import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
+import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
 import 'package:ecommerce/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class ProductDetailPage extends StatelessWidget {
     final loadProduct =
         Provider.of<HomeProductController>(context, listen: false)
             .findById(productId);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor:
@@ -29,7 +31,7 @@ class ProductDetailPage extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * .58,
+                  height: MediaQuery.of(context).size.height * .65,
                   color:
                       const Color.fromARGB(255, 233, 231, 231).withOpacity(1),
                   child: Padding(
@@ -71,20 +73,61 @@ class ProductDetailPage extends StatelessWidget {
                                   ),
                                 ),
                                 Ksize.ksize20,
-                                CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  child: RawMaterialButton(
-                                    onPressed: () {},
-                                    child: const Icon(Icons.share_outlined),
-                                  ),
-                                ),
+                                // CircleAvatar(
+                                //   backgroundColor: Colors.white,
+                                //   child: RawMaterialButton(
+                                //     elevation: 10,
+                                //     onPressed: () {},
+                                //     child: const Icon(Icons.share_outlined),
+                                //   ),
+                                // ),
                               ],
                             )
                           ],
                         ),
                         Image.network(
-                          "http://${MainUrls.url}/products/${loadProduct.image[0]}",
+                          "http://${MainUrls.url}/products/${loadProduct.image[value.selectedImage]}",
                           height: 320,
+                        ),
+                        Ksize.ksize10,
+                        Padding(
+                          padding: const EdgeInsets.all(11),
+                          child: Row(
+                            children: [
+                              ...List.generate(
+                                loadProduct.image.length,
+                                (index) => Consumer<HomeProductController>(
+                                    builder: (context, value, child) {
+                                  return GestureDetector(
+                                    onTap: () => value.selectTap(index),
+                                    child: AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 2000),
+                                      margin: const EdgeInsets.only(right: 15),
+                                      padding: const EdgeInsets.all(8),
+                                      height: 70,
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(0.3),
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: Colors.white.withOpacity(
+                                                value.selectedImage == index
+                                                    ? 1
+                                                    : 0)),
+                                      ),
+                                      child: Image.network(
+                                        "http://${MainUrls.url}/products/${loadProduct.image[index]}",
+                                        height: 100,
+                                        width: 100,
+                                        // fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -174,7 +217,8 @@ class ProductDetailPage extends StatelessWidget {
                             ...List.generate(
                                 loadProduct.size.length,
                                 (index) => GestureDetector(
-                                      onTap: () => value.sizeSelect(index),
+                                      onTap: () => value.sizeSelect(
+                                          index, loadProduct.size[index]),
                                       child: Card(
                                           elevation: 10,
                                           child: Container(
@@ -221,13 +265,17 @@ class ProductDetailPage extends StatelessWidget {
                     padding: const EdgeInsets.all(12),
                     child: CustomElevateButton(
                       size: 16,
-                      text: 'ADD TO CART',
+                      text: value2.cartItemsId.contains(value.product?.id)
+                          ? 'GO TO CART'
+                          : 'ADD TO CART',
                       onpressed: () {
-                        value2.addToCart(
-                          loadProduct.id,
-                          value.productSize,
-                          null,
-                        );
+                        return value2.cartItemsId.contains(value.product?.id)
+                            ? value.goToCart(context)
+                            : value2.addToCart(
+                                loadProduct.id,
+                                value.productSize,
+                                null,
+                              );
                       },
                     ),
                   )
