@@ -8,7 +8,6 @@ import 'package:ecommerce/view/wishlist/widget/no_wishlist.dart';
 import 'package:ecommerce/widgets/loading.dart';
 import 'package:ecommerce/widgets/text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class Favorites extends StatelessWidget {
@@ -17,34 +16,34 @@ class Favorites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final wishlistProvider =
+        Provider.of<WishlistProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<WishlistProvider>(context, listen: false).getWishListItems();
     });
     return Scaffold(
+      backgroundColor: Kcolors.bgcolor,
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, 70),
         child: AppBar(
-          title: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          title: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Ba',
-                    style: GoogleFonts.hurricane(
-                        fontSize: 50, color: Colors.black),
-                  ),
-                  const SizedBox(
-                    width: 2,
-                  ),
-                  Text(
-                    'zz',
-                    style:
-                        GoogleFonts.knewave(fontSize: 30, color: Colors.black),
-                  ),
-                ],
+              Text(
+                'Wishlist',
+                style: SafeGoogleFont(
+                  'Metropolis',
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                  height: 1.5,
+                  color: Colors.black,
+
+                  // const Color(0xff222222),
+                ),
               ),
+              Text(
+                '${wishlistProvider.favorProduct.length}  items',
+                style: const TextStyle(color: Colors.grey, fontSize: 14),
+              )
             ],
           ),
           actions: [
@@ -165,7 +164,7 @@ class Favorites extends StatelessWidget {
                                                   ],
                                                 ),
                                               ),
-                                              child: Icon(
+                                              child: const Icon(
                                                 Icons.favorite,
                                                 color: Colors.red,
                                               ),

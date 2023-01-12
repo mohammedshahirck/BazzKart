@@ -12,6 +12,7 @@ class TextsField extends StatelessWidget {
     this.validator,
     this.readOnly = false,
     required this.keyboardType,
+    this.prefixicon,
   }) : super(key: key);
   final String hintText;
   final bool isPassword;
@@ -22,6 +23,7 @@ class TextsField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool readOnly;
   final TextInputType? keyboardType;
+  final Icon? prefixicon;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class TextsField extends StatelessWidget {
             ),
           ),
         ),
+        prefixIcon: prefixicon,
         suffixIcon: isPassword == true
             ? IconButton(
                 onPressed: suffixOntap,

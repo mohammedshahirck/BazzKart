@@ -127,9 +127,9 @@ class WishlistProvider with ChangeNotifier {
           });
 
           if (value == 201) {
-            BazzToast.showToast("Item Added to Wishlist", Colors.green);
+            BazzToast.showToast("Item Added to Wishlist", Colors.grey);
           } else if (value == 204) {
-            BazzToast.showToast("Item Removed from Wishlist", Colors.green);
+            BazzToast.showToast("Item Removed from Wishlist", Colors.grey);
           }
         } else {
           isLoading = false;

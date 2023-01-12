@@ -128,6 +128,7 @@ class CartController extends ChangeNotifier {
         if (value != null) {
           await CartService().getCart().then((value) {
             if (value != null) {
+              notifyListeners();
               cartList = value;
               notifyListeners();
               totalProduct();

@@ -45,18 +45,6 @@ class BottomNav extends StatelessWidget {
               ),
               NavigationDestination(
                 icon: Icon(
-                  Icons.grid_view_outlined,
-                  color: Colors.grey,
-                  size: 30,
-                ),
-                label: 'Categories',
-                selectedIcon: Icon(
-                  Icons.grid_view_rounded,
-                  color: Colors.black,
-                ),
-              ),
-              NavigationDestination(
-                icon: Icon(
                   Icons.shopping_bag_outlined,
                   color: Colors.grey,
                   size: 30,

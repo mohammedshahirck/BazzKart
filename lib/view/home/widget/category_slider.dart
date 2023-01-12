@@ -2,8 +2,10 @@ import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/home/home_controller.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
 import 'package:ecommerce/view/category/category.dart';
+import 'package:ecommerce/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CategorySlider extends StatelessWidget {
   const CategorySlider({
@@ -24,7 +26,7 @@ class CategorySlider extends StatelessWidget {
           return InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(Categorys.catRoute,
-                  arguments: value.carousalList[index].id);
+                  arguments: value.categoryList[index].id);
             },
             child: Column(
               children: [

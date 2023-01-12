@@ -1,3 +1,4 @@
+import 'package:ecommerce/controller/providers/address/add_address.dart';
 import 'package:ecommerce/controller/providers/bottom_nav/bottom_nav.dart';
 import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/forget/forget_controller.dart';
@@ -60,6 +61,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CartController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AddressController(),
         ),
       ],
       child: MaterialApp(

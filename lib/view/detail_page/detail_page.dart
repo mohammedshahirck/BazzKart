@@ -2,7 +2,6 @@ import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
-import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
 import 'package:ecommerce/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -158,7 +157,8 @@ class ProductDetailPage extends StatelessWidget {
                         Ksize.ksize10,
                         Row(
                           children: [
-                            Text("₹${loadProduct.discountPrice}"),
+                            Text(
+                                "₹${(loadProduct.price) - (loadProduct.discountPrice)}"),
                             Ksize.kWsize10,
                             Text(
                               "₹${loadProduct.price.toString()}",
@@ -257,27 +257,44 @@ class ProductDetailPage extends StatelessWidget {
             elevation: 5,
             child: Container(
               color: Colors.white,
-              height: 100,
+              height: 75,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: CustomElevateButton(
-                      size: 16,
-                      text: value2.cartItemsId.contains(value.product?.id)
-                          ? 'GO TO CART'
-                          : 'ADD TO CART',
-                      onpressed: () {
-                        return value2.cartItemsId.contains(value.product?.id)
-                            ? value.goToCart(context)
-                            : value2.addToCart(
-                                loadProduct.id,
-                                value.productSize,
-                                null,
-                              );
-                      },
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 180,
+                        child: CustomElevateButton(
+                          size: 16,
+                          text: 'Buy Now',
+                          onpressed: () {},
+                        ),
+                      ),
+                      SizedBox(
+                        width: 180,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: CustomElevateButton(
+                            size: 16,
+                            text: value2.cartItemsId.contains(loadProduct.id)
+                                ? 'GO TO CART'
+                                : 'ADD TO CART',
+                            onpressed: () {
+                              return value2.cartItemsId
+                                      .contains(value.product?.id)
+                                  ? value.goToCart(context)
+                                  : value2.addToCart(
+                                      loadProduct.id,
+                                      value.productSize,
+                                      null,
+                                    );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),
