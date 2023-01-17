@@ -3,9 +3,12 @@ import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/view/order_page/order_page.dart';
 import 'package:ecommerce/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../widgets/text_style.dart';
 
 class ProductDetailPage extends StatelessWidget {
   static const routeNames = "/detail_page";
@@ -17,6 +20,9 @@ class ProductDetailPage extends StatelessWidget {
     final loadProduct =
         Provider.of<HomeProductController>(context, listen: false)
             .findById(productId);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<HomeProductController>(context, listen: false).sizechart0();
+    });
 
     return SafeArea(
       child: Scaffold(
@@ -186,122 +192,193 @@ class ProductDetailPage extends StatelessWidget {
                             Text(loadProduct.rating),
                           ],
                         ),
-                        Ksize.ksize20,
                       ],
                     ),
                   ),
                 ),
-                Ksize.ksize10,
-                Card(
-                  elevation: 5,
-                  child: SizedBox(
-                    height: 100,
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Text(
-                                "Select Size",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
-                              ),
+                Ksize.ksize5,
+                Container(
+                  color: Colors.white,
+                  height: 100,
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                              "Select Size",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
                             ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ...List.generate(
-                                loadProduct.size.length,
-                                (index) => GestureDetector(
-                                      onTap: () => value.sizeSelect(
-                                          index, loadProduct.size[index]),
-                                      child: Card(
-                                          elevation: 10,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.transparent,
-                                              border: Border.all(
-                                                  color: value.sizeChartIndex ==
-                                                          index
-                                                      ? Colors.blue
-                                                      : Colors.white),
-                                            ),
-                                            height: 30,
-                                            width: 30,
-                                            child: Center(
-                                                child: Text(
-                                              loadProduct.size[index],
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            )),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ...List.generate(
+                              loadProduct.size.length,
+                              (index) => GestureDetector(
+                                    onTap: () => value.sizeSelect(
+                                        index, loadProduct.size[index]),
+                                    child: Card(
+                                        elevation: 10,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            border: Border.all(
+                                                color: value.sizeChartIndex ==
+                                                        index
+                                                    ? Colors.black
+                                                    : Colors.white),
+                                          ),
+                                          height: 30,
+                                          width: 30,
+                                          child: Center(
+                                              child: Text(
+                                            loadProduct.size[index],
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
                                           )),
-                                    )),
-                          ],
+                                        )),
+                                  )),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Ksize.ksize5,
+                Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Product Details',
+                          style: SafeGoogleFont(
+                            'Metropolis',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            height: 1.2575,
+                            color: Colors.black,
+                            // const Color(0xff222222),
+                          ),
                         ),
+                        Ksize.ksize10,
+                        const SizedBox(
+                          width: double.infinity,
+                          child: Text(
+                            'An ideal pick for a casual wardrobe, this casual shirt is designed with a solid surface, spread collar and a patch pocket.',
+                          ),
+                        ),
+                        Ksize.ksize10,
+                        const OverViewDetails(
+                          data: 'Formal',
+                          title: 'Type',
+                        ),
+                        Ksize.ksize10,
+                        const OverViewDetails(title: 'Design', data: 'Solid'),
+                        Ksize.ksize10,
+                        const OverViewDetails(
+                            title: 'Sleeve Length', data: 'Full Sleeves'),
+                        Ksize.ksize10,
+                        const OverViewDetails(
+                            title: 'Fabric', data: 'Cotton Blend'),
+                        Ksize.ksize10,
+                        const OverViewDetails(title: 'Fit', data: 'Slim Fit')
                       ],
                     ),
                   ),
-                ),
-                Ksize.ksize10,
+                )
               ],
             ),
           );
         }),
         bottomNavigationBar: Consumer2<HomeProductController, CartController>(
             builder: (context, value, value2, child) {
-          return Card(
-            elevation: 5,
-            child: Container(
-              color: Colors.white,
-              height: 75,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: 180,
+          return Container(
+            color: Colors.white,
+            height: 75,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 180,
+                      child: CustomElevateButton(
+                        size: 16,
+                        text: 'Buy Now',
+                        onpressed: () {
+                          Navigator.of(context).pushNamed(OrderPage.routename,
+                              arguments: productId);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 180,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
                         child: CustomElevateButton(
                           size: 16,
-                          text: 'Buy Now',
-                          onpressed: () {},
+                          text: value2.cartItemsId.contains(loadProduct.id)
+                              ? 'GO TO CART'
+                              : 'ADD TO CART',
+                          onpressed: () {
+                            return value2.cartItemsId
+                                    .contains(value.product?.id)
+                                ? value.goToCartpage(context)
+                                : value2.addToCart(
+                                    loadProduct.id,
+                                    value.productSize,
+                                    null,
+                                  );
+                          },
                         ),
                       ),
-                      SizedBox(
-                        width: 180,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: CustomElevateButton(
-                            size: 16,
-                            text: value2.cartItemsId.contains(loadProduct.id)
-                                ? 'GO TO CART'
-                                : 'ADD TO CART',
-                            onpressed: () {
-                              return value2.cartItemsId
-                                      .contains(value.product?.id)
-                                  ? value.goToCart(context)
-                                  : value2.addToCart(
-                                      loadProduct.id,
-                                      value.productSize,
-                                      null,
-                                    );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
           );
         }),
       ),
+    );
+  }
+}
+
+class OverViewDetails extends StatelessWidget {
+  const OverViewDetails({
+    Key? key,
+    required this.title,
+    required this.data,
+  }) : super(key: key);
+  final String title;
+  final String data;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          '$title:',
+          style: SafeGoogleFont(
+            'Metropolis',
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            height: 1.2575,
+            color: Colors.grey,
+            // const Color(0xff222222),
+          ),
+        ),
+        Ksize.kWsize10,
+        Text(data),
+      ],
     );
   }
 }

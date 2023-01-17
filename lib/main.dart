@@ -13,6 +13,7 @@ import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/routes/route_function.dart';
 import 'package:ecommerce/view/category/category.dart';
 import 'package:ecommerce/view/detail_page/detail_page.dart';
+import 'package:ecommerce/view/order_page/order_page.dart';
 import 'package:ecommerce/view/splash/splash.dart';
 import 'package:ecommerce/view/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,8 @@ class MyApp extends StatelessWidget {
         routes: {
           ProductDetailPage.routeNames: (context) => const ProductDetailPage(),
           Categorys.catRoute: (context) => const Categorys(),
-          Favorites.wishList: (context) => const Favorites()
+          Favorites.wishList: (context) => const Favorites(),
+          OrderPage.routename: (context) => const OrderPage()
         },
       ),
     );

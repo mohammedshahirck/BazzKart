@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:ecommerce/model/product/product_model.dart';
-import 'package:ecommerce/routes/route_names.dart';
 import 'package:ecommerce/services/home/home_product.dart';
 import 'package:ecommerce/utils/api_base_url.dart';
 import 'package:ecommerce/view/detail_page/detail_page.dart';
+import 'package:ecommerce/view/my_bag/my_bag.dart';
 import 'package:flutter/material.dart';
 
 import '../../../view/detail_page/utils/product_id_model.dart';
@@ -27,6 +27,11 @@ class HomeProductController with ChangeNotifier {
     notifyListeners();
   }
 
+  void sizechart0() {
+    sizeChartIndex = 0;
+    notifyListeners();
+  }
+
   void toProductScreen(context, productId) {
     final args = ProductIdModel(productId: productId);
     Navigator.of(context).pushNamed(
@@ -40,12 +45,16 @@ class HomeProductController with ChangeNotifier {
       notifyListeners();
       BazzToast.showToast('Please select size', Colors.red);
     } else {
-      log('going to cart');
-      notifyListeners();
-      Navigator.of(context).pushNamed(RouteNames.cartpage);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MyBag(),
+          ));
       notifyListeners();
     }
   }
+
+  void goToCartpage(BuildContext context) {}
 
   void getProducts() async {
     isLoading = true;

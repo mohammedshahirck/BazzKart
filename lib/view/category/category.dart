@@ -45,7 +45,7 @@ class Categorys extends StatelessWidget {
                             ffem: ffem,
                             fem: fem,
                             image:
-                                "http://172.16.10.109:5005/products/${productCategory[index].image[0]}",
+                                "http://172.16.4.134:5005/products/${productCategory[index].image[0]}",
                             name: productCategory[index].name,
                             price:
                                 "${(productCategory[index].price) - (productCategory[index].discountPrice)}",

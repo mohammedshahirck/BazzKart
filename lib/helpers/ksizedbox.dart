@@ -7,6 +7,7 @@ class Ksize {
   static const ksize12 = SizedBox(height: 12);
   static const ksize5 = SizedBox(height: 5);
   static const kWsize10 = SizedBox(width: 10);
+  static const kWsize15 = SizedBox(width: 15);
   static const kWsize20 = SizedBox(width: 20);
   static const ksize30 = SizedBox(height: 30);
   static const ksize40 = SizedBox(height: 40);
