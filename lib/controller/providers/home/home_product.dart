@@ -4,6 +4,7 @@ import 'package:ecommerce/services/home/home_product.dart';
 import 'package:ecommerce/utils/api_base_url.dart';
 import 'package:ecommerce/view/detail_page/detail_page.dart';
 import 'package:ecommerce/view/my_bag/my_bag.dart';
+import 'package:ecommerce/view/order_page/order_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../view/detail_page/utils/product_id_model.dart';
@@ -52,6 +53,14 @@ class HomeProductController with ChangeNotifier {
           ));
       notifyListeners();
     }
+  }
+
+  void gotoOrderpage(
+    String productId,
+    BuildContext context,
+  ) {
+    Navigator.of(context).pushNamed(OrderPage.routename, arguments: productId);
+    notifyListeners();
   }
 
   void goToCartpage(BuildContext context) {}

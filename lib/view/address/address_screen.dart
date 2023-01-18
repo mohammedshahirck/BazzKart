@@ -1,6 +1,7 @@
 import 'package:ecommerce/controller/providers/address/add_address.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/model/address/address_screen_enum.dart';
 import 'package:ecommerce/widgets/custom_elevated_button.dart';
 import 'package:ecommerce/widgets/text_style.dart';
 import 'package:ecommerce/widgets/textfield.dart';
@@ -10,26 +11,36 @@ import 'package:provider/provider.dart';
 class AddAddressScreen extends StatelessWidget {
   AddAddressScreen({
     super.key,
+    required this.addressid,
+    required this.addressScreenCheck,
   });
-
+  final AddressScreenEnum addressScreenCheck;
+  final String? addressid;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final addAddressController =
+        Provider.of<AddressController>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      addAddressController.setAddressScreen(addressScreenCheck, addressid);
+    });
+
     return Scaffold(
       backgroundColor: Kcolors.bgcolor,
       appBar: AppBar(
-        title: Text(
+        title: ListTile(
+            title: Text(
           'ADDRESS',
           style: SafeGoogleFont(
             'Metropolis',
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: FontWeight.w700,
             height: 1.2575,
             color: Colors.black,
             // const Color(0xff222222),
           ),
-        ),
+        )),
         elevation: 0,
         backgroundColor: Kcolors.bgcolor,
       ),
@@ -40,20 +51,6 @@ class AddAddressScreen extends StatelessWidget {
             key: formKey,
             child: Column(
               children: [
-                ListTile(
-                  title: Text(
-                    'ADD NEW ADDRESS',
-                    style: SafeGoogleFont(
-                      'Metropolis',
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      height: 1.2575,
-                      color: Colors.black,
-                      // const Color(0xff222222),
-                    ),
-                  ),
-                ),
-                Ksize.ksize30,
                 TextsField(
                   controller: values.namecontroller,
                   hintText: "Name *",
@@ -191,10 +188,9 @@ class AddAddressScreen extends StatelessWidget {
                   size: 18,
                   text: 'Save Address',
                   onpressed: () {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                      values.addNewAddress(context);
-                    }
+                    values.saveAddress(formKey.currentState!, context,
+                        addressScreenCheck, addressid);
+                    values.getAllAddress();
                   },
                 ),
               ],

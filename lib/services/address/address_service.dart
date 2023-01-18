@@ -75,4 +75,20 @@ class AddressService {
     }
     return null;
   }
+
+  Future<AddressModel?> getSingleAddress(String addressId) async {
+    Dio dios = await Interceptorapi().getApiUser();
+    try {
+      final Response response = await dios
+          .get("${MainUrls.baseUrl + ApiEndPoints.address}/$addressId");
+
+      if (response.statusCode == 200) {
+        final AddressModel model = AddressModel.fromJson(response.data);
+        return model;
+      }
+    } catch (e) {
+      BazzException.errorHandler(e);
+    }
+    return null;
+  }
 }

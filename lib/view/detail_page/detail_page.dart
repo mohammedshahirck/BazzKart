@@ -4,7 +4,6 @@ import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
-import 'package:ecommerce/view/address/address_screen.dart';
 import 'package:ecommerce/view/order_page/order_page.dart';
 import 'package:ecommerce/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -80,14 +79,6 @@ class ProductDetailPage extends StatelessWidget {
                                   ),
                                 ),
                                 Ksize.ksize20,
-                                // CircleAvatar(
-                                //   backgroundColor: Colors.white,
-                                //   child: RawMaterialButton(
-                                //     elevation: 10,
-                                //     onPressed: () {},
-                                //     child: const Icon(Icons.share_outlined),
-                                //   ),
-                                // ),
                               ],
                             )
                           ],
@@ -318,15 +309,17 @@ class ProductDetailPage extends StatelessWidget {
                         size: 16,
                         text: 'Buy Now',
                         onpressed: () {
-                          value3.addressList.isEmpty
-                              ? Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) {
-                                    return AddAddressScreen();
-                                  },
-                                ))
-                              : Navigator.of(context).pushNamed(
-                                  OrderPage.routename,
-                                  arguments: productId);
+                          value2.cartItemsId.contains(value.product?.id)
+                              ? value.goToCartpage(context)
+                              : value2.addToCart(
+                                  loadProduct.id,
+                                  value.productSize,
+                                  null,
+                                );
+                          value.gotoOrderpage(
+                            productId,
+                            context,
+                          );
                         },
                       ),
                     ),
@@ -334,9 +327,10 @@ class ProductDetailPage extends StatelessWidget {
                       width: 180,
                       child: CustomElevateButton(
                         size: 16,
-                        text: value2.cartItemsId.contains(loadProduct.id)
-                            ? 'GO TO CART'
-                            : 'ADD TO CART',
+                        text: 'ADD TO CART',
+                        // value2.cartItemsId.contains(loadProduct.id)
+                        //     ? 'GO TO CART'
+                        //     : 'ADD TO CART',
                         onpressed: () {
                           return value2.cartItemsId.contains(value.product?.id)
                               ? value.goToCartpage(context)

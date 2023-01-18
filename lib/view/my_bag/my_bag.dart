@@ -9,9 +9,6 @@ import 'package:ecommerce/view/my_bag/widget/cart_shimmer.dart';
 import 'package:ecommerce/view/my_bag/widget/price_detail.dart';
 import 'package:ecommerce/widgets/appbar.dart';
 import 'package:ecommerce/widgets/custom_bottom_placeorderwidget.dart';
-import 'package:ecommerce/widgets/loading.dart';
-import 'package:ecommerce/widgets/shimmer.dart';
-import 'package:ecommerce/widgets/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +19,8 @@ class MyBag extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Kcolors.bgcolor,
-      appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, 80),
+      appBar: const PreferredSize(
+          preferredSize: Size(double.infinity, 80),
           child: Appbar(
             title: 'MyBag',
           )),
@@ -94,12 +91,11 @@ class MyBag extends StatelessWidget {
                                 Ksize.ksize40,
                                 PriceDetailsWidget(
                                   itemCount: cartc.totalProductCount.toString(),
-                                  amount:
+                                  amount: cartc.totalSave.toString(),
+                                  discount:
                                       cartc.cartList!.totalDiscount.toString(),
-                                  discount: cartc.totalSave.toString(),
                                   deliveryCharge: 'Free',
-                                  totalAmount:
-                                      cartc.cartList!.totalPrice.toString(),
+                                  totalAmount: cartc.totalSave.toString(),
                                 ),
                               ],
                             ),
@@ -115,7 +111,7 @@ class MyBag extends StatelessWidget {
                             //   null,
                             //   null,
                             // ),
-                            totalAmount: cartc.cartList!.totalPrice.toString(),
+                            totalAmount: cartc.totalSave.toString(),
                             textTitle: 'Place Order',
                           ),
                         ),

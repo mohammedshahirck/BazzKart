@@ -4,6 +4,8 @@ import 'package:ecommerce/services/address/address_service.dart';
 import 'package:ecommerce/utils/api_base_url.dart';
 import 'package:flutter/material.dart';
 
+import '../../../model/address/address_screen_enum.dart';
+
 class AddressController extends ChangeNotifier {
   final TextEditingController namecontroller = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
@@ -19,6 +21,10 @@ class AddressController extends ChangeNotifier {
   AddNewAddressModel? address;
   String addressType = 'Home';
   String? addressGroupValue = 'address1';
+
+  AddressModel? singleAddress;
+  String title = 'ADD NEW ADDRESS';
+  String title2 = 'UPDATE YOUR ADDRESS';
 
   String? nameHouseandAreaValidator(String? value, String text) {
     if (value == null || value.isEmpty) {
@@ -42,6 +48,17 @@ class AddressController extends ChangeNotifier {
       return 'Please enter your pincode';
     } else if (value.length != 6) {
       return 'Please enter valid pincode';
+    }
+    return null;
+  }
+
+  String? tiTle(AddressScreenEnum addressScreenChecK) {
+    if (addressScreenChecK == AddressScreenEnum.addAddressScreen) {
+      title;
+      notifyListeners();
+    } else {
+      title2;
+      notifyListeners();
     }
     return null;
   }
@@ -80,11 +97,15 @@ class AddressController extends ChangeNotifier {
     });
   }
 
-  void saveAddress(FormState currentState, BuildContext context) {
+  void saveAddress(FormState currentState, BuildContext context,
+      AddressScreenEnum addressScreenCheck, String? addressId) {
     if (currentState.validate()) {
-      addNewAddress(context);
+      if (addressScreenCheck == AddressScreenEnum.addAddressScreen) {
+        addNewAddress(context);
+      } else {
+        updateAddress(context, addressId!);
+      }
     }
-    BazzToast.showToast('Address Add', Colors.grey);
   }
 
   Future<String?> getAllAddress() async {
@@ -134,6 +155,7 @@ class AddressController extends ChangeNotifier {
       if (value != null) {
         clearControllers();
         Navigator.of(context).pop();
+        getAllAddress();
         isLoading2 = false;
         notifyListeners();
       } else {
@@ -156,5 +178,44 @@ class AddressController extends ChangeNotifier {
         notifyListeners();
       }
     });
+  }
+
+  void getSingleAddress(String addressId) async {
+    isLoading = true;
+    notifyListeners();
+    await AddressService().getSingleAddress(addressId).then((value) {
+      if (value != null) {
+        singleAddress = value;
+        notifyListeners();
+        isLoading = false;
+        notifyListeners();
+      } else {
+        isLoading = false;
+        notifyListeners();
+      }
+    });
+  }
+
+  void setAddressScreen(
+      AddressScreenEnum addressScreenCheck, String? addressId) async {
+    if (addressScreenCheck == AddressScreenEnum.addAddressScreen) {
+      clearControllers();
+    } else {
+      await AddressService().getSingleAddress(addressId!).then((value) {
+        notifyListeners();
+        if (value != null) {
+          namecontroller.text = value.fullName;
+          localityTown.text = value.landMark;
+          pinCodeController.text = value.pin;
+          stateNameController.text = value.state;
+          phoneNumberController.text = value.phone;
+          placeController.text = localityTown.text = value.place;
+          homeAddressName.text = value.address;
+          notifyListeners();
+          value.title == 'Home' ? homeselect = true : homeselect = false;
+          notifyListeners();
+        }
+      });
+    }
   }
 }

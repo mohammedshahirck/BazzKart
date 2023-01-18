@@ -1,6 +1,8 @@
 import 'package:ecommerce/controller/providers/address/add_address.dart';
+import 'package:ecommerce/controller/providers/address_controller/addaddress.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/model/address/address_screen_enum.dart';
 import 'package:ecommerce/view/address/address_screen.dart';
 import 'package:ecommerce/widgets/loading.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,8 @@ class AddressView extends StatelessWidget {
   Widget build(BuildContext context) {
     final addressController =
         Provider.of<AddressController>(context, listen: false);
+    final addressProvider =
+        Provider.of<AddressProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       addressController.getAllAddress();
     });
@@ -31,7 +35,8 @@ class AddressView extends StatelessWidget {
       body: SafeArea(
           child: SingleChildScrollView(
         physics: const ScrollPhysics(),
-        child: Consumer<AddressController>(builder: (context, value, _) {
+        child: Consumer2<AddressController, AddressProvider>(
+            builder: (context, value, value2, _) {
           return value.isLoading == true
               ? SizedBox(
                   height: MediaQuery.of(context).size.height / 1.3,
@@ -133,7 +138,6 @@ class AddressView extends StatelessWidget {
                                                 color:
                                                     Kcolors.addressTextColor),
                                           ),
-                                          Ksize.ksize10,
                                           Row(
                                             children: [
                                               Text(
@@ -144,7 +148,14 @@ class AddressView extends StatelessWidget {
                                               ),
                                               Ksize.kWsize20,
                                               OutlinedButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  value2.toEditAddressScreen(
+                                                      context,
+                                                      AddressScreenEnum
+                                                          .editAddressScreen,
+                                                      value.addressList[index]
+                                                          .id);
+                                                },
                                                 child: Row(
                                                   children: const [
                                                     Icon(Icons.edit,
@@ -162,6 +173,7 @@ class AddressView extends StatelessWidget {
                                                   onPressed: () {
                                                     value.deleteAddress(value
                                                         .addressList[index].id);
+                                                    value.getAllAddress();
                                                   },
                                                   child: Row(
                                                     children: const [
@@ -210,7 +222,10 @@ class AddNewAddressBut extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return AddAddressScreen();
+            return AddAddressScreen(
+              addressScreenCheck: AddressScreenEnum.addAddressScreen,
+              addressid: '',
+            );
           },
         ));
       },
