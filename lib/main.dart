@@ -6,6 +6,7 @@ import 'package:ecommerce/controller/providers/home/home_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/login/login_controller.dart';
 import 'package:ecommerce/controller/providers/otp/otp_controller.dart';
+import 'package:ecommerce/controller/providers/payment/payment_controller.dart';
 import 'package:ecommerce/controller/providers/profile/profile_controller.dart';
 import 'package:ecommerce/controller/providers/signup/singnup_controller.dart';
 import 'package:ecommerce/controller/providers/splash/splash.dart';
@@ -65,6 +66,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => AddressController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PaymentController(),
         ),
       ],
       child: MaterialApp(

@@ -144,6 +144,7 @@ class AddressController extends ChangeNotifier {
   }
 
   void deleteAddress(String addressId) async {
+    notifyListeners();
     isLoading = true;
     notifyListeners();
     await AddressService().deleteAddress(addressId).then((value) {

@@ -1,8 +1,10 @@
 import 'package:ecommerce/constants/api_url.dart';
+import 'package:ecommerce/controller/providers/address/add_address.dart';
 import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/view/address/address_screen.dart';
 import 'package:ecommerce/view/order_page/order_page.dart';
 import 'package:ecommerce/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -298,11 +300,12 @@ class ProductDetailPage extends StatelessWidget {
             ),
           );
         }),
-        bottomNavigationBar: Consumer2<HomeProductController, CartController>(
-            builder: (context, value, value2, child) {
+        bottomNavigationBar:
+            Consumer3<HomeProductController, CartController, AddressController>(
+                builder: (context, value, value2, value3, child) {
           return Container(
             color: Colors.white,
-            height: 75,
+            height: 60,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -315,31 +318,34 @@ class ProductDetailPage extends StatelessWidget {
                         size: 16,
                         text: 'Buy Now',
                         onpressed: () {
-                          Navigator.of(context).pushNamed(OrderPage.routename,
-                              arguments: productId);
+                          value3.addressList.isEmpty
+                              ? Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return AddAddressScreen();
+                                  },
+                                ))
+                              : Navigator.of(context).pushNamed(
+                                  OrderPage.routename,
+                                  arguments: productId);
                         },
                       ),
                     ),
                     SizedBox(
                       width: 180,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: CustomElevateButton(
-                          size: 16,
-                          text: value2.cartItemsId.contains(loadProduct.id)
-                              ? 'GO TO CART'
-                              : 'ADD TO CART',
-                          onpressed: () {
-                            return value2.cartItemsId
-                                    .contains(value.product?.id)
-                                ? value.goToCartpage(context)
-                                : value2.addToCart(
-                                    loadProduct.id,
-                                    value.productSize,
-                                    null,
-                                  );
-                          },
-                        ),
+                      child: CustomElevateButton(
+                        size: 16,
+                        text: value2.cartItemsId.contains(loadProduct.id)
+                            ? 'GO TO CART'
+                            : 'ADD TO CART',
+                        onpressed: () {
+                          return value2.cartItemsId.contains(value.product?.id)
+                              ? value.goToCartpage(context)
+                              : value2.addToCart(
+                                  loadProduct.id,
+                                  value.productSize,
+                                  null,
+                                );
+                        },
                       ),
                     ),
                   ],
