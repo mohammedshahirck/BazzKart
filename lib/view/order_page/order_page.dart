@@ -1,6 +1,7 @@
 import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/address/add_address.dart';
-import 'package:ecommerce/controller/providers/home/home_product.dart';
+import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
+import 'package:ecommerce/controller/providers/order/order_control.dart';
 import 'package:ecommerce/controller/providers/payment/payment_controller.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
@@ -22,7 +23,7 @@ class OrderPage extends StatefulWidget {
       required this.screenEnumcheck,
       required this.cartId,
       required this.productId});
-  static const routename = 'OrderPage';
+  // static const routename = 'OrderPage';
   final OrderSummaryScreenEnum screenEnumcheck;
   final String cartId;
   final String productId;
@@ -51,176 +52,257 @@ class _OrderPageState extends State<OrderPage> {
 
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context)?.settings.arguments as String;
-    final provider = Provider.of<HomeProductController>(context, listen: false)
-        .findById(productId);
+    // final productId = ModalRoute.of(context)?.settings.arguments as String;
+    // final provider =
+    //     .findById(productId);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<OrderSummaryProvider>(context, listen: false)
+          .getSingleCartProduct(context, widget.productId, widget.cartId);
+    });
     return Scaffold(
-      backgroundColor: Kcolors.bgcolor,
-      appBar: AppBar(
-        elevation: 1,
         backgroundColor: Kcolors.bgcolor,
-        title: Text(
-          'Review Order',
-          style: SafeGoogleFont(
-            'Metropolis',
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-            height: 1.2575,
-            color: Colors.black,
-            // const Color(0xff222222),
+        appBar: AppBar(
+          elevation: 1,
+          backgroundColor: Kcolors.bgcolor,
+          title: Text(
+            'Review Order',
+            style: SafeGoogleFont(
+              'Metropolis',
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+              height: 1.2575,
+              color: Colors.black,
+              // const Color(0xff222222),
+            ),
           ),
         ),
-      ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              physics: const ScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Ksize.ksize40,
-                  Consumer<AddressController>(builder: (context, value, child) {
-                    return value.isLoading == true
-                        ? const Center(
-                            child: LoadingWidget(color: Colors.black))
-                        : value.addressList.isEmpty
+        body: Consumer2<CartController, OrderSummaryProvider>(
+            builder: (context, value, order, child) {
+          return SafeArea(
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  physics: const ScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Ksize.ksize40,
+                      Consumer<AddressController>(
+                          builder: (context, value, child) {
+                        return value.isLoading == true
                             ? const Center(
-                                child: Text('Address Empty'),
-                              )
-                            : Container(
-                                padding: const EdgeInsets.all(20),
-                                margin: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color:
-                                      const Color.fromARGB(255, 233, 228, 228),
-                                ),
+                                child: LoadingWidget(color: Colors.black))
+                            : value.addressList.isEmpty
+                                ? const Center(
+                                    child: Text('Address Empty'),
+                                  )
+                                : Container(
+                                    padding: const EdgeInsets.all(20),
+                                    margin: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: const Color.fromARGB(
+                                          255, 233, 228, 228),
+                                    ),
 
-                                // height: MediaQuery.of(context).size.height * .25,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Consumer<AddressController>(
-                                        builder: (context, value, child) {
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Delivery to ${value.addressList[0].fullName},  ${value.addressList[0].pin}',
-                                            style: SafeGoogleFont(
-                                              'Metropolis',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                              height: 1.2575,
-                                              color: Colors.black,
-                                              // const Color(0xff222222),
-                                            ),
-                                          ),
-                                          Ksize.ksize10,
-                                          Text(value.addressList.isEmpty
-                                              ? ""
-                                              : value.addressList[0].fullName),
-                                          Ksize.ksize5,
-                                          Text(value.addressList.isEmpty
-                                              ? ""
-                                              : value.addressList[0].address),
-                                          Ksize.ksize5,
-                                          Text(value.addressList.isEmpty
-                                              ? ""
-                                              : value.addressList[0].place),
-                                          Ksize.ksize5,
-                                          Text(value.addressList.isEmpty
-                                              ? ""
-                                              : value.addressList[0].landMark),
-                                          Ksize.ksize5,
-                                          Text(value.addressList.isEmpty
-                                              ? ""
-                                              : value.addressList[0].phone),
-                                          Ksize.ksize5,
-                                        ],
-                                      );
-                                    }),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      // crossAxisAlignment: CrossAxisAlignment.center,
+                                    // height: MediaQuery.of(context).size.height * .25,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              .7,
-                                          child: OutlinedButton(
-                                              onPressed: () {},
-                                              style: OutlinedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.white),
-                                              child: const Text(
-                                                'Change Address',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              )),
+                                        Consumer<AddressController>(
+                                            builder: (context, value, child) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Delivery to ${value.addressList[0].fullName},  ${value.addressList[0].pin}',
+                                                style: SafeGoogleFont(
+                                                  'Metropolis',
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 1.2575,
+                                                  color: Colors.black,
+                                                  // const Color(0xff222222),
+                                                ),
+                                              ),
+                                              Ksize.ksize10,
+                                              Text(value.addressList.isEmpty
+                                                  ? ""
+                                                  : value
+                                                      .addressList[0].fullName),
+                                              Ksize.ksize5,
+                                              Text(value.addressList.isEmpty
+                                                  ? ""
+                                                  : value
+                                                      .addressList[0].address),
+                                              Ksize.ksize5,
+                                              Text(value.addressList.isEmpty
+                                                  ? ""
+                                                  : value.addressList[0].place),
+                                              Ksize.ksize5,
+                                              Text(value.addressList.isEmpty
+                                                  ? ""
+                                                  : value
+                                                      .addressList[0].landMark),
+                                              Ksize.ksize5,
+                                              Text(value.addressList.isEmpty
+                                                  ? ""
+                                                  : value.addressList[0].phone),
+                                              Ksize.ksize5,
+                                            ],
+                                          );
+                                        }),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          // crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .7,
+                                              child: OutlinedButton(
+                                                  onPressed: () {},
+                                                  style:
+                                                      OutlinedButton.styleFrom(
+                                                          backgroundColor:
+                                                              Colors.white),
+                                                  child: const Text(
+                                                    'Change Address',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  )),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  );
+                      }),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return OrderProductDetails(
+                                image: widget.screenEnumcheck ==
+                                        OrderSummaryScreenEnum
+                                            .normalOrderSummaryScreen
+                                    ? "http://${MainUrls.url}/products/${value.cartList!.products[index].product.image[0]}"
+                                    : "http://${MainUrls.url}/products/${order.product[0].product.image[0]}",
+                                name: widget.screenEnumcheck ==
+                                        OrderSummaryScreenEnum
+                                            .normalOrderSummaryScreen
+                                    ? value
+                                        .cartList!.products[index].product.name
+                                    : order.product[0].product.name,
+                                price: widget.screenEnumcheck ==
+                                        OrderSummaryScreenEnum
+                                            .normalOrderSummaryScreen
+                                    ? value
+                                        .cartList!.products[index].product.price
+                                    : order.product[0].product.price,
+                                qty: 0,
+                                size: '',
+                                // index: index,
+                                rating: widget.screenEnumcheck ==
+                                        OrderSummaryScreenEnum
+                                            .normalOrderSummaryScreen
+                                    ? value.cartList!.products[index].product
+                                        .rating
+                                    : order.product[0].product.rating,
                               );
-                  }),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: OrderProductDetails(
-                        image:
-                            "http://${MainUrls.url}/products/${provider.image[0]}",
-                        name: provider.name,
-                        price: provider.price,
-                        qty: 0,
-                        size: provider.size[2],
-                        index: 1,
-                        rating: provider.rating,
+                            },
+                            itemCount: widget.screenEnumcheck ==
+                                    OrderSummaryScreenEnum
+                                        .normalOrderSummaryScreen
+                                ? value.cartList!.products.length
+                                : 1,
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return Ksize.kWsize20;
+                            },
+                          ),
+                        ),
                       ),
-                    ),
+                      Ksize.ksize10,
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(width: 1, color: Colors.grey)),
+                        child: PriceDetailsWidget(
+                          itemCount: 1.toString(),
+                          amount: widget.screenEnumcheck ==
+                                  OrderSummaryScreenEnum
+                                      .normalOrderSummaryScreen
+                              ? (value.cartList!.totalPrice).toString()
+                              : (order.product[0].product.price).toString(),
+                          discount: widget.screenEnumcheck ==
+                                  OrderSummaryScreenEnum
+                                      .normalOrderSummaryScreen
+                              ? (value.cartList!.totalDiscount).toString()
+                              : (order.product[0].product.discountPrice)
+                                  .toString(),
+                          // provider.discountPrice.toString(),
+                          deliveryCharge: 'Free',
+                          totalAmount: widget.screenEnumcheck ==
+                                  OrderSummaryScreenEnum
+                                      .normalOrderSummaryScreen
+                              ? (value.cartList!.totalPrice -
+                                      value.cartList!.totalDiscount)
+                                  .toString()
+                              : (order.product[0].product.price -
+                                      order.product[0].discountPrice)
+                                  .toString(),
+                          // ((provider.price) - (provider.discountPrice))
+                          //     .toString(),
+                        ),
+                      ),
+                      Ksize.ksize80,
+                    ],
                   ),
-                  Ksize.ksize10,
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 1, color: Colors.grey)),
-                    child: PriceDetailsWidget(
-                      itemCount: 1.toString(),
-                      amount: provider.price.toString(),
-                      discount: provider.discountPrice.toString(),
-                      deliveryCharge: 'Free',
-                      totalAmount: ((provider.price) - (provider.discountPrice))
-                          .toString(),
-                    ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: CustomBottomPlaceOrderWidget(
+                    ontap: () {
+                      paymentProvider.openCheckout(int.parse(
+                        widget.screenEnumcheck ==
+                                OrderSummaryScreenEnum.normalOrderSummaryScreen
+                            ? (value.cartList!.totalPrice -
+                                    value.cartList!.totalDiscount)
+                                .toString()
+                            : (order.product[0].product.price -
+                                    order.product[0].product.discountPrice)
+                                .toString(),
+                        // ((provider.price) - (provider.discountPrice))
+                        //     .toString(),
+                      ));
+                    },
+                    totalAmount: (widget.screenEnumcheck ==
+                            OrderSummaryScreenEnum.normalOrderSummaryScreen
+                        ? (value.cartList!.totalDiscount -
+                                value.cartList!.totalDiscount)
+                            .toString()
+                        : (order.product[0].product.price -
+                                order.product[0].product.discountPrice)
+                            .toString()),
+                    // (provider.price) - (provider.discountPrice)
+                    // )
+                    //   .toString(),
+                    textTitle: 'Continue',
                   ),
-                  Ksize.ksize80,
-                ],
-              ),
+                ),
+              ],
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: CustomBottomPlaceOrderWidget(
-                ontap: () {
-                  paymentProvider.openCheckout(int.parse(
-                    ((provider.price) - (provider.discountPrice)).toString(),
-                  ));
-                },
-                totalAmount:
-                    ((provider.price) - (provider.discountPrice)).toString(),
-                textTitle: 'Continue',
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          );
+        }));
   }
 }

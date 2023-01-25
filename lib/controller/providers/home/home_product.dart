@@ -60,19 +60,19 @@ class HomeProductController with ChangeNotifier {
     }
   }
 
-  void gotoOrderpage(
-      String productId, BuildContext context, String? productSize) {
-    if (productSize == null) {
-      BazzToast.showToast('Select Size', Colors.grey);
-    } else {
-      Navigator.of(context).pushNamed(
-        OrderPage.routename,
-        arguments: productId,
-      );
+  // void gotoOrderpage(
+  //     String productId, BuildContext context, String? productSize) {
+  //   if (productSize == null) {
+  //     BazzToast.showToast('Select Size', Colors.grey);
+  //   } else {
+  //     Navigator.of(context).pushNamed(
+  //       OrderPage.routename,
+  //       arguments: productId,
+  //     );
 
-      notifyListeners();
-    }
-  }
+  //     notifyListeners();
+  //   }
+  // }
 
   void goToCartpage(BuildContext context) {}
 

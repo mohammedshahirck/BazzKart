@@ -1,6 +1,7 @@
 import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_controller.dart';
+import 'package:ecommerce/controller/providers/order/order_control.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
@@ -27,8 +28,9 @@ class MyBag extends StatelessWidget {
           )),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer3<HomeController, CartController, WishlistProvider>(
-            builder: (context, homec, cartc, wishPro, child) {
+        child: Consumer4<HomeController, CartController, WishlistProvider,
+                OrderSummaryProvider>(
+            builder: (context, homec, cartc, wishPro, order, child) {
           return cartc.isLoading == true
               ? const CartShimmer()
               : cartc.cartList == null || cartc.cartList!.products.isEmpty
@@ -46,7 +48,7 @@ class MyBag extends StatelessWidget {
                                   itemCount: cartc.cartList!.products.length,
                                   itemBuilder: (context, index) {
                                     return Container(
-                                      height: 140,
+                                      height: 190,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -106,7 +108,9 @@ class MyBag extends StatelessWidget {
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: CustomBottomPlaceOrderWidget(
-                            ontap: () {},
+                            ontap: () {
+                              order.toOderScreen(context, '', '');
+                            },
                             totalAmount: cartc.totalSave.toString(),
                             textTitle: 'Place Order',
                           ),

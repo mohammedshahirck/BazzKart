@@ -10,7 +10,7 @@ class OrderProductDetails extends StatelessWidget {
     required this.price,
     required this.qty,
     required this.size,
-    required this.index,
+    // required this.index,
     required this.rating,
   }) : super(key: key);
   final String image;
@@ -19,7 +19,7 @@ class OrderProductDetails extends StatelessWidget {
   final String rating;
   final int qty;
   final String size;
-  final int index;
+  // final int index;
 
   @override
   Widget build(BuildContext context) {
