@@ -1,11 +1,14 @@
-import 'dart:developer';
+import 'package:ecommerce/controller/providers/bottom_nav/bottom_nav.dart';
 import 'package:ecommerce/model/product/product_model.dart';
 import 'package:ecommerce/services/home/home_product.dart';
 import 'package:ecommerce/utils/api_base_url.dart';
 import 'package:ecommerce/view/detail_page/detail_page.dart';
 import 'package:ecommerce/view/my_bag/my_bag.dart';
 import 'package:ecommerce/view/order_page/order_page.dart';
+import 'package:ecommerce/widgets/bottom_nav.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../view/detail_page/utils/product_id_model.dart';
 
@@ -46,21 +49,29 @@ class HomeProductController with ChangeNotifier {
       notifyListeners();
       BazzToast.showToast('Please select size', Colors.red);
     } else {
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(
-            builder: (context) => const MyBag(),
-          ));
+          CupertinoPageRoute(
+            builder: (context) => BottomNav(),
+          ),
+          (route) => false);
+      Provider.of<BottomNavController>(context, listen: false).index = 1;
       notifyListeners();
     }
   }
 
   void gotoOrderpage(
-    String productId,
-    BuildContext context,
-  ) {
-    Navigator.of(context).pushNamed(OrderPage.routename, arguments: productId);
-    notifyListeners();
+      String productId, BuildContext context, String? productSize) {
+    if (productSize == null) {
+      BazzToast.showToast('Select Size', Colors.grey);
+    } else {
+      Navigator.of(context).pushNamed(
+        OrderPage.routename,
+        arguments: productId,
+      );
+
+      notifyListeners();
+    }
   }
 
   void goToCartpage(BuildContext context) {}
@@ -96,7 +107,7 @@ class HomeProductController with ChangeNotifier {
 
   List<ProductModel> findByCategory(String categoryid) {
     return productList.where((prod) {
-      return prod.categoryId.contains(categoryid);
+      return prod.category.contains(categoryid);
     }).toList();
   }
 

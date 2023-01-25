@@ -1,7 +1,6 @@
 import 'package:ecommerce/routes/route_names.dart';
 import 'package:ecommerce/view/address/address_screen.dart';
 import 'package:ecommerce/view/address/model/addadress.dart';
-import 'package:ecommerce/view/address_view/address_view.dart';
 import 'package:ecommerce/view/forget_password/forget_password_screen.dart';
 import 'package:ecommerce/view/home/home_screen.dart';
 import 'package:ecommerce/view/login/login_page.dart';

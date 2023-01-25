@@ -6,8 +6,6 @@ import 'package:ecommerce/view/home/widget/carosoul_builder.dart';
 import 'package:ecommerce/view/home/widget/category_slider.dart';
 import 'package:ecommerce/view/home/widget/home_title.dart';
 import 'package:ecommerce/view/home/widget/product_slider.dart';
-import 'package:ecommerce/widgets/loading.dart';
-import 'package:ecommerce/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

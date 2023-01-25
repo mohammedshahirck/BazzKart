@@ -1,9 +1,7 @@
 import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
-import 'package:ecommerce/view/detail_page/detail_page.dart';
 import 'package:ecommerce/widgets/product_card.dart';
-import 'package:ecommerce/widgets/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +34,7 @@ class ProductList extends StatelessWidget {
                 name: values.productList[index].name,
                 offer: "${values.productList[index].offer}% off",
                 price:
-                    "₹${((values.productList[index].price) - (values.productList[index].discountPrice)).toString()}",
+                    "₹${(((values.productList[index].price - values.productList[index].discountPrice).round()).toString())}",
                 rating: values.productList[index].rating,
                 argument: values.productList[index].id,
               );

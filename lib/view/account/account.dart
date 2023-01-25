@@ -1,5 +1,4 @@
 import 'package:ecommerce/controller/providers/profile/profile_controller.dart';
-import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
 import 'package:ecommerce/view/address_view/address_view.dart';
@@ -78,14 +77,14 @@ class Account extends StatelessWidget {
         Consumer<LogoutController>(builder: (context, value, child) {
           return ListTile(
             title: Row(
-              children: [
+              children: const [
                 Icon(
                   Icons.logout,
                   color: Color.fromARGB(255, 7, 7, 7),
                 ),
                 Ksize.kWsize20,
                 Ksize.kWsize20,
-                const Text('Log Out'),
+                Text('Log Out'),
               ],
             ),
             onTap: () {

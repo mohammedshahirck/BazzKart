@@ -90,7 +90,6 @@ class MyApp extends StatelessWidget {
           ProductDetailPage.routeNames: (context) => const ProductDetailPage(),
           Categorys.catRoute: (context) => const Categorys(),
           Favorites.wishList: (context) => const Favorites(),
-          OrderPage.routename: (context) => const OrderPage()
         },
       ),
     );

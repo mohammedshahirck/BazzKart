@@ -7,5 +7,5 @@ class Kcolors {
 
 class Tstyles {
   static TextStyle? sTtyleaddress =
-      TextStyle(color: Color.fromARGB(255, 125, 124, 124));
+      TextStyle(color: const Color.fromARGB(255, 125, 124, 124));
 }

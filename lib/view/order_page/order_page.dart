@@ -4,6 +4,7 @@ import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/payment/payment_controller.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/model/order_summery/order_summery.dart';
 import 'package:ecommerce/view/my_bag/widget/price_detail.dart';
 import 'package:ecommerce/view/order_page/widget/order_product.dart';
 import 'package:ecommerce/widgets/loading.dart';
@@ -16,8 +17,15 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../widgets/custom_bottom_placeorderwidget.dart';
 
 class OrderPage extends StatefulWidget {
-  const OrderPage({super.key});
+  const OrderPage(
+      {super.key,
+      required this.screenEnumcheck,
+      required this.cartId,
+      required this.productId});
   static const routename = 'OrderPage';
+  final OrderSummaryScreenEnum screenEnumcheck;
+  final String cartId;
+  final String productId;
 
   @override
   State<OrderPage> createState() => _OrderPageState();
@@ -74,15 +82,11 @@ class _OrderPageState extends State<OrderPage> {
                   Ksize.ksize40,
                   Consumer<AddressController>(builder: (context, value, child) {
                     return value.isLoading == true
-                        ? Container(
-                            child: Center(
-                                child: LoadingWidget(color: Colors.black)),
-                          )
+                        ? const Center(
+                            child: LoadingWidget(color: Colors.black))
                         : value.addressList.isEmpty
-                            ? Container(
-                                child: Center(
-                                  child: Text('Address Empty'),
-                                ),
+                            ? const Center(
+                                child: Text('Address Empty'),
                               )
                             : Container(
                                 padding: const EdgeInsets.all(20),

@@ -1,7 +1,6 @@
 import 'package:ecommerce/model/address/add_address.dart';
 import 'package:ecommerce/model/address/get_address.dart';
 import 'package:ecommerce/services/address/address_service.dart';
-import 'package:ecommerce/utils/api_base_url.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/address/address_screen_enum.dart';

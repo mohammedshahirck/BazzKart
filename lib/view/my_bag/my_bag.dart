@@ -4,6 +4,7 @@ import 'package:ecommerce/controller/providers/home/home_controller.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/view/my_bag/widget/cart_empty.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_pro_details.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_shimmer.dart';
 import 'package:ecommerce/view/my_bag/widget/price_detail.dart';
@@ -90,13 +91,14 @@ class MyBag extends StatelessWidget {
                                 ),
                                 Ksize.ksize40,
                                 PriceDetailsWidget(
-                                  itemCount: cartc.totalProductCount.toString(),
-                                  amount: cartc.totalSave.toString(),
-                                  discount:
-                                      cartc.cartList!.totalDiscount.toString(),
-                                  deliveryCharge: 'Free',
-                                  totalAmount: cartc.totalSave.toString(),
-                                ),
+                                    itemCount:
+                                        cartc.totalProductCount.toString(),
+                                    amount:
+                                        cartc.cartList!.totalPrice.toString(),
+                                    discount: cartc.cartList!.totalDiscount
+                                        .toString(),
+                                    deliveryCharge: 'Free',
+                                    totalAmount: "${cartc.totalSave}"),
                               ],
                             ),
                           ),
@@ -105,12 +107,6 @@ class MyBag extends StatelessWidget {
                           alignment: Alignment.bottomCenter,
                           child: CustomBottomPlaceOrderWidget(
                             ontap: () {},
-                            // cartScreenProvider.toAddressScreen(
-                            //   context,
-                            //   OrderSummaryScreenEnum.normalOrderSummaryScreen,
-                            //   null,
-                            //   null,
-                            // ),
                             totalAmount: cartc.totalSave.toString(),
                             textTitle: 'Place Order',
                           ),
@@ -118,22 +114,6 @@ class MyBag extends StatelessWidget {
                       ],
                     );
         }),
-      ),
-    );
-  }
-}
-
-class CartEmpty extends StatelessWidget {
-  const CartEmpty({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height / 2,
-      child: const Center(
-        child: Text('Cart is Empty'),
       ),
     );
   }
