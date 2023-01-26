@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import '../../../model/address/address_screen_enum.dart';
 
 class AddressController extends ChangeNotifier {
+  AddressController() {
+    getAllAddress();
+  }
   final TextEditingController namecontroller = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController pinCodeController = TextEditingController();

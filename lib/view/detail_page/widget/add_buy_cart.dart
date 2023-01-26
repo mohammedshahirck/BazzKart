@@ -49,28 +49,26 @@ class AddBuyAndCart extends StatelessWidget {
                 // ),
                 SizedBox(
                     width: 180,
-                    child:
-                        //  value2.cartItemsId.contains(loadProduct.id)
-                        //     ? CustomElevateButton(
-                        //         text: 'GO TO CART',
-                        //         size: 16,
-                        //         onpressed: () {
-                        //           value.goToCart(context);
-                        //         },
-                        //       )
-                        //     :
-                        CustomElevateButton(
-                      size: 16,
-                      text: 'ADD TO CART',
-                      //     : 'ADD TO CART',
-                      onpressed: () {
-                        value2.addToCart(
-                          loadProduct.id,
-                          value.productSize,
-                          null,
-                        );
-                      },
-                    )),
+                    child: value2.cartItemsId.contains(loadProduct.id)
+                        ? CustomElevateButton(
+                            text: 'GO TO CART',
+                            size: 16,
+                            onpressed: () {
+                              value.goToCart(context);
+                            },
+                          )
+                        : CustomElevateButton(
+                            size: 16,
+                            text: 'ADD TO CART',
+                            //     : 'ADD TO CART',
+                            onpressed: () {
+                              value2.addToCart(
+                                loadProduct.id,
+                                value.productSize,
+                                null,
+                              );
+                            },
+                          )),
               ],
             )
           ],

@@ -5,6 +5,7 @@ import 'package:ecommerce/controller/providers/order/order_control.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/view/detail_page/detail_page.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_empty.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_pro_details.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_shimmer.dart';
@@ -56,29 +57,45 @@ class MyBag extends StatelessWidget {
                                       ),
                                       child: Column(
                                         children: [
-                                          CartProductDetails(
-                                              name: cartc.cartList!
-                                                  .products[index].product.name,
-                                              image:
-                                                  "http://${MainUrls.url}/products/${cartc.cartList!.products[index].product.image[0]}",
-                                              price: (((cartc
-                                                              .cartList!
-                                                              .products[index]
-                                                              .product
-                                                              .price) -
-                                                          (cartc
-                                                              .cartList!
-                                                              .products[index]
-                                                              .product
-                                                              .discountPrice)) *
-                                                      (cartc.cartList!
-                                                          .products[index].qty))
-                                                  .toInt(),
-                                              index: index,
-                                              qty: cartc.cartList!
-                                                  .products[index].qty,
-                                              size: cartc.cartList!
-                                                  .products[index].size),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(context,
+                                                  ProductDetailPage.routeNames,
+                                                  arguments: cartc
+                                                      .cartList!
+                                                      .products[index]
+                                                      .product
+                                                      .id);
+                                            },
+                                            child: CartProductDetails(
+                                                name: cartc
+                                                    .cartList!
+                                                    .products[index]
+                                                    .product
+                                                    .name,
+                                                image:
+                                                    "http://${MainUrls.url}/products/${cartc.cartList!.products[index].product.image[0]}",
+                                                price: (((cartc
+                                                                .cartList!
+                                                                .products[index]
+                                                                .product
+                                                                .price) -
+                                                            (cartc
+                                                                .cartList!
+                                                                .products[index]
+                                                                .product
+                                                                .discountPrice)) *
+                                                        (cartc
+                                                            .cartList!
+                                                            .products[index]
+                                                            .qty))
+                                                    .toInt(),
+                                                index: index,
+                                                qty: cartc.cartList!
+                                                    .products[index].qty,
+                                                size: cartc.cartList!
+                                                    .products[index].size),
+                                          ),
                                           Ksize.ksize5,
                                         ],
                                       ),
@@ -98,9 +115,11 @@ class MyBag extends StatelessWidget {
                                     amount:
                                         cartc.cartList!.totalPrice.toString(),
                                     discount: cartc.cartList!.totalDiscount
-                                        .toString(),
+                                        .toStringAsFixed(0),
                                     deliveryCharge: 'Free',
-                                    totalAmount: "${cartc.totalSave}"),
+                                    totalAmount: (cartc.cartList!.totalPrice -
+                                            cartc.cartList!.totalDiscount)
+                                        .toStringAsFixed(0)),
                               ],
                             ),
                           ),
@@ -111,7 +130,9 @@ class MyBag extends StatelessWidget {
                             ontap: () {
                               order.toOderScreen(context, '', '');
                             },
-                            totalAmount: cartc.totalSave.toString(),
+                            totalAmount: (cartc.cartList!.totalPrice -
+                                    cartc.cartList!.totalDiscount)
+                                .toStringAsFixed(0),
                             textTitle: 'Place Order',
                           ),
                         ),

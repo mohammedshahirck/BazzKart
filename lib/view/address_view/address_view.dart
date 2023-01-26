@@ -17,8 +17,8 @@ class AddressView extends StatelessWidget {
   Widget build(BuildContext context) {
     final addressController =
         Provider.of<AddressController>(context, listen: false);
-    final addressProvider =
-        Provider.of<AddressProvider>(context, listen: false);
+
+    Provider.of<AddressProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       addressController.getAllAddress();
     });

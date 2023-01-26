@@ -1,6 +1,8 @@
 import 'package:ecommerce/model/home/carousal_model.dart';
 import 'package:ecommerce/model/home/category_model.dart';
+import 'package:ecommerce/model/product/product_model.dart';
 import 'package:ecommerce/services/home/home_services.dart';
+import 'package:ecommerce/utils/debouncer.dart';
 import 'package:flutter/cupertino.dart';
 
 class HomeController with ChangeNotifier {
@@ -10,6 +12,8 @@ class HomeController with ChangeNotifier {
   }
   List<CategoryModel> categoryList = [];
   List<CarousalModel> carousalList = [];
+  List<ProductModel> productList = [];
+  final debouncer = Debouncer(milliseconds: 200);
   int activeindex = 0;
   void carosoul(index) {
     activeindex = index;
@@ -46,6 +50,22 @@ class HomeController with ChangeNotifier {
         isLoading = false;
         notifyListeners();
         return null;
+      }
+    });
+  }
+
+  Future<void> searchProducts(String text) async {
+    isLoading = true;
+    notifyListeners();
+    await HomeServices().searchProducts(text).then((value) {
+      if (value != null) {
+        productList = value;
+        notifyListeners();
+        isLoading = false;
+        notifyListeners();
+      } else {
+        isLoading = false;
+        notifyListeners();
       }
     });
   }

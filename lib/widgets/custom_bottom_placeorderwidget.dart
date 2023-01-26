@@ -57,7 +57,7 @@ class CustomBottomPlaceOrderWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     textTitle,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Kcolors.bgcolor,
                       fontWeight: FontWeight.bold,
                     ),

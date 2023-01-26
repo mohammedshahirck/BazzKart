@@ -3,8 +3,6 @@ import 'package:ecommerce/model/product/product_model.dart';
 import 'package:ecommerce/services/home/home_product.dart';
 import 'package:ecommerce/utils/api_base_url.dart';
 import 'package:ecommerce/view/detail_page/detail_page.dart';
-import 'package:ecommerce/view/my_bag/my_bag.dart';
-import 'package:ecommerce/view/order_page/order_page.dart';
 import 'package:ecommerce/widgets/bottom_nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +50,7 @@ class HomeProductController with ChangeNotifier {
       Navigator.pushAndRemoveUntil(
           context,
           CupertinoPageRoute(
-            builder: (context) => BottomNav(),
+            builder: (context) => const BottomNav(),
           ),
           (route) => false);
       Provider.of<BottomNavController>(context, listen: false).index = 1;

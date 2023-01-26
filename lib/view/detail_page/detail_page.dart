@@ -74,7 +74,9 @@ class ProductDetailPage extends StatelessWidget {
                 child: SizeChartWidget(loadProduct: loadProduct),
               ),
               Ksize.ksize5,
-              const ProductDescription()
+              ProductDescription(
+                loadProduct: loadProduct,
+              )
             ],
           ),
         ),

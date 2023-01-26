@@ -1,4 +1,5 @@
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/model/product/product_model.dart';
 import 'package:ecommerce/view/detail_page/widget/product_over_title.dart';
 import 'package:ecommerce/widgets/text_style.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,9 @@ import 'package:flutter/material.dart';
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
     Key? key,
+    required this.loadProduct,
   }) : super(key: key);
-
+  final ProductModel loadProduct;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,25 +31,27 @@ class ProductDescription extends StatelessWidget {
               ),
             ),
             Ksize.ksize10,
-            const SizedBox(
+            SizedBox(
               width: double.infinity,
-              child: Text(
-                'An ideal pick for a casual wardrobe, this casual shirt is designed with a solid surface, spread collar and a patch pocket.',
-              ),
+              child: Text(loadProduct.description),
             ),
             Ksize.ksize10,
-            const OverViewDetails(
-              data: 'Formal',
-              title: 'Type',
-            ),
+            OverViewDetails(
+                title: 'Type', data: loadProduct.details.ram.toString()),
             Ksize.ksize10,
-            const OverViewDetails(title: 'Design', data: 'Solid'),
+            OverViewDetails(
+                title: 'Design',
+                data: loadProduct.details.processor.toString()),
             Ksize.ksize10,
-            const OverViewDetails(title: 'Sleeve Length', data: 'Full Sleeves'),
+            OverViewDetails(
+                title: 'Sleeve Length',
+                data: loadProduct.details.rearCam.toString()),
             Ksize.ksize10,
-            const OverViewDetails(title: 'Fabric', data: 'Cotton Blend'),
+            OverViewDetails(
+                title: 'Fabric', data: loadProduct.details.display.toString()),
             Ksize.ksize10,
-            const OverViewDetails(title: 'Fit', data: 'Slim Fit')
+            OverViewDetails(
+                title: 'Fit', data: loadProduct.details.battery.toString())
           ],
         ),
       ),

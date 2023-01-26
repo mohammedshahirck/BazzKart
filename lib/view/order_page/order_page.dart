@@ -52,9 +52,6 @@ class _OrderPageState extends State<OrderPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final productId = ModalRoute.of(context)?.settings.arguments as String;
-    // final provider =
-    //     .findById(productId);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<OrderSummaryProvider>(context, listen: false)
           .getSingleCartProduct(context, widget.productId, widget.cartId);
@@ -157,7 +154,6 @@ class _OrderPageState extends State<OrderPage> {
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          // crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             SizedBox(
                                               width: MediaQuery.of(context)
@@ -273,18 +269,18 @@ class _OrderPageState extends State<OrderPage> {
                   alignment: Alignment.bottomCenter,
                   child: CustomBottomPlaceOrderWidget(
                     ontap: () {
-                      paymentProvider.openCheckout(int.parse(
+                      paymentProvider.openCheckout(
                         widget.screenEnumcheck ==
                                 OrderSummaryScreenEnum.normalOrderSummaryScreen
-                            ? (value.cartList!.totalPrice -
-                                    value.cartList!.totalDiscount)
-                                .toString()
-                            : (order.product[0].product.price -
-                                    order.product[0].product.discountPrice)
-                                .toString(),
+                            ? value.cartList!.totalPrice -
+                                value.cartList!.totalDiscount.round()
+                            : order.product[0].product.price -
+                                order.product[0].product.discountPrice,
+                        context,
+
                         // ((provider.price) - (provider.discountPrice))
                         //     .toString(),
-                      ));
+                      );
                     },
                     totalAmount: (widget.screenEnumcheck ==
                             OrderSummaryScreenEnum.normalOrderSummaryScreen

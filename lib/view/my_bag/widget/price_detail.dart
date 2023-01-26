@@ -60,7 +60,7 @@ class PriceDetailsWidget extends StatelessWidget {
         Ksize.ksize20,
         Row(
           children: [
-            Icon(
+            const Icon(
               Icons.verified,
               color: Colors.green,
             ),

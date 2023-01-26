@@ -100,7 +100,7 @@ class Favorites extends StatelessWidget {
                                   .wishList!.products[index].product.id,
                             ),
                             child: SizedBox(
-                              width: 210,
+                              width: 170,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -172,7 +172,7 @@ class Favorites extends StatelessWidget {
                                           ),
                                           Image.network(
                                             "http://${MainUrls.url}/products/${wishvalue.wishList!.products[index].product.image[0]}",
-                                            height: 170,
+                                            height: 200,
                                           )
                                         ],
                                       )
