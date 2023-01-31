@@ -75,230 +75,251 @@ class _OrderPageState extends State<OrderPage> {
         ),
         body: Consumer2<CartController, OrderSummaryProvider>(
             builder: (context, value, order, child) {
-          return SafeArea(
-            child: Stack(
-              children: [
-                SingleChildScrollView(
-                  physics: const ScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          return order.loading == true
+              ? const LoadingWidget(color: Colors.black)
+              : SafeArea(
+                  child: Stack(
                     children: [
-                      Ksize.ksize40,
-                      Consumer<AddressController>(
-                          builder: (context, value, child) {
-                        return value.isLoading == true
-                            ? const Center(
-                                child: LoadingWidget(color: Colors.black))
-                            : value.addressList.isEmpty
-                                ? const Center(
-                                    child: Text('Address Empty'),
-                                  )
-                                : Container(
-                                    padding: const EdgeInsets.all(20),
-                                    margin: const EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: const Color.fromARGB(
-                                          255, 233, 228, 228),
-                                    ),
+                      SingleChildScrollView(
+                        physics: const ScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Ksize.ksize40,
+                            Consumer<AddressController>(
+                                builder: (context, value, child) {
+                              return value.isLoading == true
+                                  ? const Center(
+                                      child: LoadingWidget(color: Colors.black))
+                                  : value.addressList.isEmpty
+                                      ? const Center(
+                                          child: Text('Address Empty'),
+                                        )
+                                      : Container(
+                                          padding: const EdgeInsets.all(20),
+                                          margin: const EdgeInsets.all(20),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: const Color.fromARGB(
+                                                255, 233, 228, 228),
+                                          ),
 
-                                    // height: MediaQuery.of(context).size.height * .25,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Consumer<AddressController>(
-                                            builder: (context, value, child) {
-                                          return Column(
+                                          // height: MediaQuery.of(context).size.height * .25,
+                                          child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Delivery to ${value.addressList[0].fullName},  ${value.addressList[0].pin}',
-                                                style: SafeGoogleFont(
-                                                  'Metropolis',
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                  height: 1.2575,
-                                                  color: Colors.black,
-                                                  // const Color(0xff222222),
-                                                ),
+                                              Consumer<AddressController>(
+                                                  builder:
+                                                      (context, value, child) {
+                                                return Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Delivery to ${value.addressList[0].fullName},  ${value.addressList[0].pin}',
+                                                      style: SafeGoogleFont(
+                                                        'Metropolis',
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        height: 1.2575,
+                                                        color: Colors.black,
+                                                        // const Color(0xff222222),
+                                                      ),
+                                                    ),
+                                                    Ksize.ksize10,
+                                                    Text(value
+                                                            .addressList.isEmpty
+                                                        ? ""
+                                                        : value.addressList[0]
+                                                            .fullName),
+                                                    Ksize.ksize5,
+                                                    Text(value
+                                                            .addressList.isEmpty
+                                                        ? ""
+                                                        : value.addressList[0]
+                                                            .address),
+                                                    Ksize.ksize5,
+                                                    Text(value
+                                                            .addressList.isEmpty
+                                                        ? ""
+                                                        : value.addressList[0]
+                                                            .place),
+                                                    Ksize.ksize5,
+                                                    Text(value
+                                                            .addressList.isEmpty
+                                                        ? ""
+                                                        : value.addressList[0]
+                                                            .landMark),
+                                                    Ksize.ksize5,
+                                                    Text(value
+                                                            .addressList.isEmpty
+                                                        ? ""
+                                                        : value.addressList[0]
+                                                            .phone),
+                                                    Ksize.ksize5,
+                                                  ],
+                                                );
+                                              }),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            .7,
+                                                    child: OutlinedButton(
+                                                        onPressed: () {},
+                                                        style: OutlinedButton
+                                                            .styleFrom(
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white),
+                                                        child: const Text(
+                                                          'Change Address',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        )),
+                                                  ),
+                                                ],
                                               ),
-                                              Ksize.ksize10,
-                                              Text(value.addressList.isEmpty
-                                                  ? ""
-                                                  : value
-                                                      .addressList[0].fullName),
-                                              Ksize.ksize5,
-                                              Text(value.addressList.isEmpty
-                                                  ? ""
-                                                  : value
-                                                      .addressList[0].address),
-                                              Ksize.ksize5,
-                                              Text(value.addressList.isEmpty
-                                                  ? ""
-                                                  : value.addressList[0].place),
-                                              Ksize.ksize5,
-                                              Text(value.addressList.isEmpty
-                                                  ? ""
-                                                  : value
-                                                      .addressList[0].landMark),
-                                              Ksize.ksize5,
-                                              Text(value.addressList.isEmpty
-                                                  ? ""
-                                                  : value.addressList[0].phone),
-                                              Ksize.ksize5,
                                             ],
-                                          );
-                                        }),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  .7,
-                                              child: OutlinedButton(
-                                                  onPressed: () {},
-                                                  style:
-                                                      OutlinedButton.styleFrom(
-                                                          backgroundColor:
-                                                              Colors.white),
-                                                  child: const Text(
-                                                    'Change Address',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  )),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                      }),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return OrderProductDetails(
-                                image: widget.screenEnumcheck ==
+                                          ),
+                                        );
+                            }),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: ListView.separated(
+                                  shrinkWrap: true,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return OrderProductDetails(
+                                      image: widget.screenEnumcheck ==
+                                              OrderSummaryScreenEnum
+                                                  .normalOrderSummaryScreen
+                                          ? "http://${MainUrls.url}/products/${value.cartList!.products[index].product.image[0]}"
+                                          : "http://${MainUrls.url}/products/${order.product[0].product.image[0]}",
+                                      name: widget.screenEnumcheck ==
+                                              OrderSummaryScreenEnum
+                                                  .normalOrderSummaryScreen
+                                          ? value.cartList!.products[index]
+                                              .product.name
+                                          : order.product[0].product.name,
+                                      price: widget.screenEnumcheck ==
+                                              OrderSummaryScreenEnum
+                                                  .normalOrderSummaryScreen
+                                          ? value.cartList!.products[index]
+                                              .product.price
+                                          : order.product[0].product.price,
+                                      qty: 0,
+                                      size: '',
+                                      // index: index,
+                                      rating: widget.screenEnumcheck ==
+                                              OrderSummaryScreenEnum
+                                                  .normalOrderSummaryScreen
+                                          ? value.cartList!.products[index]
+                                              .product.rating
+                                          : order.product[0].product.rating,
+                                    );
+                                  },
+                                  itemCount: widget.screenEnumcheck ==
+                                          OrderSummaryScreenEnum
+                                              .normalOrderSummaryScreen
+                                      ? value.cartList!.products.length
+                                      : 1,
+                                  separatorBuilder:
+                                      (BuildContext context, int index) {
+                                    return Ksize.ksize10;
+                                  },
+                                ),
+                              ),
+                            ),
+                            Ksize.ksize10,
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border:
+                                      Border.all(width: 1, color: Colors.grey)),
+                              child: PriceDetailsWidget(
+                                itemCount: 1.toString(),
+                                amount: widget.screenEnumcheck ==
                                         OrderSummaryScreenEnum
                                             .normalOrderSummaryScreen
-                                    ? "http://${MainUrls.url}/products/${value.cartList!.products[index].product.image[0]}"
-                                    : "http://${MainUrls.url}/products/${order.product[0].product.image[0]}",
-                                name: widget.screenEnumcheck ==
+                                    ? (value.cartList!.totalPrice).toString()
+                                    : (order.product[0].product.price)
+                                        .toString(),
+                                discount: widget.screenEnumcheck ==
                                         OrderSummaryScreenEnum
                                             .normalOrderSummaryScreen
-                                    ? value
-                                        .cartList!.products[index].product.name
-                                    : order.product[0].product.name,
-                                price: widget.screenEnumcheck ==
+                                    ? (value.cartList!.totalDiscount)
+                                        .toStringAsFixed(0)
+                                    : (order.product[0].product.discountPrice)
+                                        .toStringAsFixed(0),
+                                // provider.discountPrice.toString(),
+                                deliveryCharge: 'Free',
+                                totalAmount: widget.screenEnumcheck ==
                                         OrderSummaryScreenEnum
                                             .normalOrderSummaryScreen
-                                    ? value
-                                        .cartList!.products[index].product.price
-                                    : order.product[0].product.price,
-                                qty: 0,
-                                size: '',
-                                // index: index,
-                                rating: widget.screenEnumcheck ==
-                                        OrderSummaryScreenEnum
-                                            .normalOrderSummaryScreen
-                                    ? value.cartList!.products[index].product
-                                        .rating
-                                    : order.product[0].product.rating,
-                              );
-                            },
-                            itemCount: widget.screenEnumcheck ==
-                                    OrderSummaryScreenEnum
-                                        .normalOrderSummaryScreen
-                                ? value.cartList!.products.length
-                                : 1,
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return Ksize.kWsize20;
-                            },
-                          ),
+                                    ? (value.cartList!.totalPrice -
+                                            value.cartList!.totalDiscount)
+                                        .toString()
+                                    : (order.product[0].product.price -
+                                            order.product[0].discountPrice)
+                                        .toStringAsFixed(0),
+                                // ((provider.price) - (provider.discountPrice))
+                                //     .toString(),
+                              ),
+                            ),
+                            Ksize.ksize80,
+                          ],
                         ),
                       ),
-                      Ksize.ksize10,
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(width: 1, color: Colors.grey)),
-                        child: PriceDetailsWidget(
-                          itemCount: 1.toString(),
-                          amount: widget.screenEnumcheck ==
-                                  OrderSummaryScreenEnum
-                                      .normalOrderSummaryScreen
-                              ? (value.cartList!.totalPrice).toString()
-                              : (order.product[0].product.price).toString(),
-                          discount: widget.screenEnumcheck ==
-                                  OrderSummaryScreenEnum
-                                      .normalOrderSummaryScreen
-                              ? (value.cartList!.totalDiscount).toString()
-                              : (order.product[0].product.discountPrice)
-                                  .toString(),
-                          // provider.discountPrice.toString(),
-                          deliveryCharge: 'Free',
-                          totalAmount: widget.screenEnumcheck ==
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: CustomBottomPlaceOrderWidget(
+                          ontap: () {
+                            paymentProvider.openCheckout(
+                              widget.screenEnumcheck ==
+                                      OrderSummaryScreenEnum
+                                          .normalOrderSummaryScreen
+                                  ? value.cartList!.totalPrice -
+                                      value.cartList!.totalDiscount.round()
+                                  : order.product[0].product.price -
+                                      order.product[0].product.discountPrice,
+                              context,
+
+                              // ((provider.price) - (provider.discountPrice))
+                              //     .toString(),
+                            );
+                          },
+                          totalAmount: (widget.screenEnumcheck ==
                                   OrderSummaryScreenEnum
                                       .normalOrderSummaryScreen
                               ? (value.cartList!.totalPrice -
                                       value.cartList!.totalDiscount)
-                                  .toString()
+                                  .toStringAsFixed(0)
                               : (order.product[0].product.price -
-                                      order.product[0].discountPrice)
-                                  .toString(),
-                          // ((provider.price) - (provider.discountPrice))
-                          //     .toString(),
+                                      order.product[0].product.discountPrice)
+                                  .toStringAsFixed(0)),
+                          // (provider.price) - (provider.discountPrice)
+                          // )
+                          //   .toString(),
+                          textTitle: 'Continue',
                         ),
                       ),
-                      Ksize.ksize80,
                     ],
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CustomBottomPlaceOrderWidget(
-                    ontap: () {
-                      paymentProvider.openCheckout(
-                        widget.screenEnumcheck ==
-                                OrderSummaryScreenEnum.normalOrderSummaryScreen
-                            ? value.cartList!.totalPrice -
-                                value.cartList!.totalDiscount.round()
-                            : order.product[0].product.price -
-                                order.product[0].product.discountPrice,
-                        context,
-
-                        // ((provider.price) - (provider.discountPrice))
-                        //     .toString(),
-                      );
-                    },
-                    totalAmount: (widget.screenEnumcheck ==
-                            OrderSummaryScreenEnum.normalOrderSummaryScreen
-                        ? (value.cartList!.totalDiscount -
-                                value.cartList!.totalDiscount)
-                            .toString()
-                        : (order.product[0].product.price -
-                                order.product[0].product.discountPrice)
-                            .toString()),
-                    // (provider.price) - (provider.discountPrice)
-                    // )
-                    //   .toString(),
-                    textTitle: 'Continue',
-                  ),
-                ),
-              ],
-            ),
-          );
+                );
         }));
   }
 }

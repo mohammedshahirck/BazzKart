@@ -1,5 +1,4 @@
 import 'package:ecommerce/controller/providers/home/home_product.dart';
-import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
 import 'package:ecommerce/view/detail_page/widget/detail_page_details.dart';
 import 'package:ecommerce/view/detail_page/widget/product_description.dart';
@@ -37,27 +36,27 @@ class ProductDetailPage extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        actions: [
-          Consumer<WishlistProvider>(builder: (context, value, child) {
-            return GestureDetector(
-              onTap: () => value.addRemoveWishlistItem(
-                loadProduct.id,
-              ),
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Icon(
-                  value.favorProduct.contains(loadProduct.id)
-                      ? Icons.favorite
-                      : Icons.favorite_outline_outlined,
-                  color: value.favorProduct.contains(loadProduct.id)
-                      ? Colors.red
-                      : Colors.black,
-                  size: 30,
-                ),
-              ),
-            );
-          }),
-        ],
+        // actions: [
+        //   Consumer<WishlistProvider>(builder: (context, value, child) {
+        //     return GestureDetector(
+        //       onTap: () => value.addRemoveWishlistItem(
+        //         loadProduct.id,
+        //       ),
+        //       child: CircleAvatar(
+        //         backgroundColor: Colors.white,
+        //         child: Icon(
+        //           value.favorProduct.contains(loadProduct.id)
+        //               ? Icons.favorite
+        //               : Icons.favorite_outline_outlined,
+        //           color: value.favorProduct.contains(loadProduct.id)
+        //               ? Colors.red
+        //               : Colors.black,
+        //           size: 30,
+        //         ),
+        //       ),
+        //     );
+        //   }),
+        // ],
       ),
       backgroundColor: const Color.fromARGB(255, 233, 231, 231).withOpacity(1),
       body: SafeArea(

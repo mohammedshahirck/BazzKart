@@ -36,78 +36,80 @@ class Account extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      body: ListView(children: [
-        ListTile(
-          title: Row(
-            children: const [
-              Icon(
-                Icons.info_outline,
-                color: Colors.black,
-              ),
-              Ksize.kWsize20,
-              Ksize.kWsize20,
-              Text(
-                'about us',
-              ),
-            ],
-          ),
-        ),
-        ListTile(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) {
-                return const AddressView();
-              },
-            ));
-          },
-          title: Row(
-            children: const [
-              Icon(
-                Icons.add_location_alt_outlined,
-                color: Colors.black,
-              ),
-              Ksize.kWsize20,
-              Ksize.kWsize20,
-              Text(
-                'Address',
-              ),
-            ],
-          ),
-        ),
-        Consumer<LogoutController>(builder: (context, value, child) {
-          return ListTile(
+      body: SafeArea(
+        child: ListView(children: [
+          ListTile(
             title: Row(
               children: const [
                 Icon(
-                  Icons.logout,
-                  color: Color.fromARGB(255, 7, 7, 7),
+                  Icons.info_outline,
+                  color: Colors.black,
                 ),
                 Ksize.kWsize20,
                 Ksize.kWsize20,
-                Text('Log Out'),
+                Text(
+                  'about us',
+                ),
               ],
             ),
-            onTap: () {
-              value.logOut(context);
-            },
-          );
-        }),
-        ListTile(
-          title: Row(
-            children: const [
-              Icon(
-                Icons.settings,
-                color: Colors.black,
-              ),
-              Ksize.kWsize20,
-              Ksize.kWsize20,
-              Text(
-                'Settings',
-              ),
-            ],
           ),
-        ),
-      ]),
+          ListTile(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return const AddressView();
+                },
+              ));
+            },
+            title: Row(
+              children: const [
+                Icon(
+                  Icons.add_location_alt_outlined,
+                  color: Colors.black,
+                ),
+                Ksize.kWsize20,
+                Ksize.kWsize20,
+                Text(
+                  'Address',
+                ),
+              ],
+            ),
+          ),
+          Consumer<LogoutController>(builder: (context, value, child) {
+            return ListTile(
+              title: Row(
+                children: const [
+                  Icon(
+                    Icons.logout,
+                    color: Color.fromARGB(255, 7, 7, 7),
+                  ),
+                  Ksize.kWsize20,
+                  Ksize.kWsize20,
+                  Text('Log Out'),
+                ],
+              ),
+              onTap: () {
+                value.logOut(context);
+              },
+            );
+          }),
+          ListTile(
+            title: Row(
+              children: const [
+                Icon(
+                  Icons.settings,
+                  color: Colors.black,
+                ),
+                Ksize.kWsize20,
+                Ksize.kWsize20,
+                Text(
+                  'Settings',
+                ),
+              ],
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }

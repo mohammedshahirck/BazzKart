@@ -5,11 +5,13 @@ import 'package:ecommerce/controller/providers/order/order_control.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/model/order_summery/order_summery.dart';
 import 'package:ecommerce/view/detail_page/detail_page.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_empty.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_pro_details.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_shimmer.dart';
 import 'package:ecommerce/view/my_bag/widget/price_detail.dart';
+import 'package:ecommerce/view/order_page/order_page.dart';
 import 'package:ecommerce/widgets/appbar.dart';
 import 'package:ecommerce/widgets/custom_bottom_placeorderwidget.dart';
 import 'package:flutter/material.dart';
@@ -27,118 +29,135 @@ class MyBag extends StatelessWidget {
           child: Appbar(
             title: 'MyBag',
           )),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer4<HomeController, CartController, WishlistProvider,
-                OrderSummaryProvider>(
-            builder: (context, homec, cartc, wishPro, order, child) {
-          return cartc.isLoading == true
-              ? const CartShimmer()
-              : cartc.cartList == null || cartc.cartList!.products.isEmpty
-                  ? const CartEmpty()
-                  : Stack(
-                      children: [
-                        SingleChildScrollView(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                ListView.separated(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: cartc.cartList!.products.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      height: 190,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Navigator.pushNamed(context,
-                                                  ProductDetailPage.routeNames,
-                                                  arguments: cartc
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Consumer4<HomeController, CartController, WishlistProvider,
+                  OrderSummaryProvider>(
+              builder: (context, homec, cartc, wishPro, order, child) {
+            return cartc.isLoading == true
+                ? const CartShimmer()
+                : cartc.cartList == null || cartc.cartList!.products.isEmpty
+                    ? const CartEmpty()
+                    : Stack(
+                        children: [
+                          SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                children: [
+                                  ListView.separated(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: cartc.cartList!.products.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        height: 190,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                    context,
+                                                    ProductDetailPage
+                                                        .routeNames,
+                                                    arguments: cartc
+                                                        .cartList!
+                                                        .products[index]
+                                                        .product
+                                                        .id);
+                                              },
+                                              child: CartProductDetails(
+                                                  name: cartc
                                                       .cartList!
                                                       .products[index]
                                                       .product
-                                                      .id);
-                                            },
-                                            child: CartProductDetails(
-                                                name: cartc
-                                                    .cartList!
-                                                    .products[index]
-                                                    .product
-                                                    .name,
-                                                image:
-                                                    "http://${MainUrls.url}/products/${cartc.cartList!.products[index].product.image[0]}",
-                                                price: (((cartc
-                                                                .cartList!
-                                                                .products[index]
-                                                                .product
-                                                                .price) -
-                                                            (cartc
-                                                                .cartList!
-                                                                .products[index]
-                                                                .product
-                                                                .discountPrice)) *
-                                                        (cartc
-                                                            .cartList!
-                                                            .products[index]
-                                                            .qty))
-                                                    .toInt(),
-                                                index: index,
-                                                qty: cartc.cartList!
-                                                    .products[index].qty,
-                                                size: cartc.cartList!
-                                                    .products[index].size),
-                                          ),
-                                          Ksize.ksize5,
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    return Ksize.ksize10;
-                                  },
-                                ),
-                                Ksize.ksize40,
-                                PriceDetailsWidget(
-                                    itemCount:
-                                        cartc.totalProductCount.toString(),
-                                    amount:
-                                        cartc.cartList!.totalPrice.toString(),
-                                    discount: cartc.cartList!.totalDiscount
-                                        .toStringAsFixed(0),
-                                    deliveryCharge: 'Free',
-                                    totalAmount: (cartc.cartList!.totalPrice -
-                                            cartc.cartList!.totalDiscount)
-                                        .toStringAsFixed(0)),
-                              ],
+                                                      .name,
+                                                  image:
+                                                      "http://${MainUrls.url}/products/${cartc.cartList!.products[index].product.image[0]}",
+                                                  price: (((cartc
+                                                                  .cartList!
+                                                                  .products[
+                                                                      index]
+                                                                  .product
+                                                                  .price) -
+                                                              (cartc
+                                                                  .cartList!
+                                                                  .products[
+                                                                      index]
+                                                                  .product
+                                                                  .discountPrice)) *
+                                                          (cartc
+                                                              .cartList!
+                                                              .products[index]
+                                                              .qty))
+                                                      .toInt(),
+                                                  index: index,
+                                                  qty: cartc.cartList!
+                                                      .products[index].qty,
+                                                  size: cartc.cartList!
+                                                      .products[index].size),
+                                            ),
+                                            Ksize.ksize5,
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    separatorBuilder: (
+                                      context,
+                                      index,
+                                    ) {
+                                      return Ksize.ksize10;
+                                    },
+                                  ),
+                                  Ksize.ksize40,
+                                  PriceDetailsWidget(
+                                      itemCount:
+                                          cartc.totalProductCount.toString(),
+                                      amount:
+                                          cartc.cartList!.totalPrice.toString(),
+                                      discount: cartc.cartList!.totalDiscount
+                                          .toStringAsFixed(0),
+                                      deliveryCharge: 'Free',
+                                      totalAmount: (cartc.cartList!.totalPrice -
+                                              cartc.cartList!.totalDiscount)
+                                          .toStringAsFixed(0)),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: CustomBottomPlaceOrderWidget(
-                            ontap: () {
-                              order.toOderScreen(context, '', '');
-                            },
-                            totalAmount: (cartc.cartList!.totalPrice -
-                                    cartc.cartList!.totalDiscount)
-                                .toStringAsFixed(0),
-                            textTitle: 'Place Order',
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: CustomBottomPlaceOrderWidget(
+                              ontap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const OrderPage(
+                                          screenEnumcheck:
+                                              OrderSummaryScreenEnum
+                                                  .normalOrderSummaryScreen,
+                                          cartId: "",
+                                          productId: ""),
+                                    ));
+                              },
+                              totalAmount: (cartc.cartList!.totalPrice -
+                                      cartc.cartList!.totalDiscount)
+                                  .toStringAsFixed(0),
+                              textTitle: 'Place Order',
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-        }),
+                        ],
+                      );
+          }),
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:ecommerce/constants/api_url.dart';
+import 'package:ecommerce/controller/providers/home/home_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/widgets/loading.dart';
@@ -18,9 +20,16 @@ class Categorys extends StatelessWidget {
     final productCategory =
         Provider.of<HomeProductController>(context, listen: false)
             .findByCategory(arg);
+    final categoryName =
+        Provider.of<HomeController>(context, listen: false).categoryName(arg);
     return Scaffold(
       backgroundColor: Kcolors.bgcolor,
       appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          categoryName.name,
+          style: const TextStyle(color: Colors.black),
+        ),
         backgroundColor: Kcolors.bgcolor,
         elevation: 0,
       ),
@@ -45,7 +54,7 @@ class Categorys extends StatelessWidget {
                             ffem: ffem,
                             fem: fem,
                             image:
-                                "http://172.16.4.134:5005/products/${productCategory[index].image[0]}",
+                                "http://${MainUrls.url}/products/${productCategory[index].image[0]}",
                             name: productCategory[index].name,
                             price:
                                 "${(productCategory[index].price) - (productCategory[index].discountPrice)}",

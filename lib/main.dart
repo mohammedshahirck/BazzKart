@@ -84,8 +84,10 @@ class MyApp extends StatelessWidget {
           useMaterial3: false,
           appBarTheme:
               const AppBarTheme(iconTheme: IconThemeData(color: Colors.black)),
-          colorScheme: ThemeData().colorScheme.copyWith(primary: Colors.grey),
-          errorColor: Colors.red,
+          colorScheme: ThemeData()
+              .colorScheme
+              .copyWith(primary: Colors.grey)
+              .copyWith(error: Colors.red),
         ),
         onGenerateRoute: (settings) => PageRouts.generateRoute(settings),
         home: const SplashScreen(),

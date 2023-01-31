@@ -69,4 +69,8 @@ class HomeController with ChangeNotifier {
       }
     });
   }
+
+  CategoryModel categoryName(String id) {
+    return categoryList.firstWhere((element) => element.id == id);
+  }
 }
