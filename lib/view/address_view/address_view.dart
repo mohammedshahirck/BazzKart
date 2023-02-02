@@ -64,135 +64,163 @@ class AddressView extends StatelessWidget {
                               return Padding(
                                 padding: const EdgeInsets.only(
                                     right: 20, left: 20, top: 20),
-                                child: Container(
-                                  //
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 240, 240, 237),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  width: double.infinity,
-                                  height:
-                                      MediaQuery.of(context).size.height * .22,
-                                  child: Row(
-                                    children: [
-                                      Ksize.kWsize10,
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Ksize.ksize10,
-                                          Row(
-                                            children: [
-                                              Text(
-                                                value.addressList[index]
-                                                    .fullName,
-                                                // value.addressList[index].fullName,
-                                                style: SafeGoogleFont(
-                                                  'Metropolis',
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600,
-                                                  height: 1.2575,
-                                                  color: Colors.black,
-                                                  // const Color(0xff222222),
+                                child: InkWell(
+                                  onTap: () {
+                                    value.addressSelect(index);
+                                  },
+                                  child: Container(
+                                    //
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 240, 240, 237),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    width: double.infinity,
+                                    height: MediaQuery.of(context).size.height *
+                                        .22,
+                                    child: Row(
+                                      children: [
+                                        Ksize.kWsize10,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Ksize.ksize10,
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  value.addressList[index]
+                                                      .fullName,
+                                                  // value.addressList[index].fullName,
+                                                  style: SafeGoogleFont(
+                                                    'Metropolis',
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 1.2575,
+                                                    color: Colors.black,
+                                                    // const Color(0xff222222),
+                                                  ),
                                                 ),
-                                              ),
-                                              Ksize.kWsize20,
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    color: const Color.fromARGB(
-                                                        255, 226, 225, 225),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15)),
-                                                height: 30,
-                                                width: 80,
-                                                child: Center(
-                                                    child: Text(value
-                                                        .addressList[index]
-                                                        .title)),
-                                              )
-                                            ],
-                                          ),
-                                          Ksize.ksize10,
-                                          SizedBox(
-                                            width: 300,
-                                            child: Text(
-                                              value.addressList[index].address,
-                                              // 'Cheloor Kalathil(H),Perinthattiri Po ,koottilangadi,Malappuram',
-                                              style: const TextStyle(
-                                                  color:
-                                                      Kcolors.addressTextColor),
+                                                Ksize.kWsize10,
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              226,
+                                                              225,
+                                                              225),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15)),
+                                                  height: 30,
+                                                  width: 60,
+                                                  child: Center(
+                                                      child: Text(value
+                                                          .addressList[index]
+                                                          .title)),
+                                                ),
+                                                Ksize.kWsize20,
+                                              ],
                                             ),
-                                          ),
-                                          Text(
-                                            // 'Makkaraparamba',
-                                            value.addressList[index].place,
-                                            style: const TextStyle(
-                                                color:
-                                                    Kcolors.addressTextColor),
-                                          ),
-                                          Text(
-                                            '${value.addressList[index].place} :${value.addressList[index].pin}',
-                                            style: const TextStyle(
-                                                color:
-                                                    Kcolors.addressTextColor),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'Mobile: ${value.addressList[index].phone}',
+                                            Ksize.ksize10,
+                                            SizedBox(
+                                              width: 300,
+                                              child: Text(
+                                                value
+                                                    .addressList[index].address,
+                                                // 'Cheloor Kalathil(H),Perinthattiri Po ,koottilangadi,Malappuram',
                                                 style: const TextStyle(
                                                     color: Kcolors
                                                         .addressTextColor),
                                               ),
-                                              Ksize.kWsize20,
-                                              OutlinedButton(
-                                                onPressed: () {
-                                                  value2.toEditAddressScreen(
-                                                      context,
-                                                      AddressScreenEnum
-                                                          .editAddressScreen,
-                                                      value.addressList[index]
-                                                          .id);
-                                                },
-                                                child: Row(
-                                                  children: const [
-                                                    Icon(Icons.edit,
-                                                        size: 20,
-                                                        color: Colors.black),
-                                                    Text('Edit',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black)),
-                                                  ],
+                                            ),
+                                            Text(
+                                              // 'Makkaraparamba',
+                                              value.addressList[index].place,
+                                              style: const TextStyle(
+                                                  color:
+                                                      Kcolors.addressTextColor),
+                                            ),
+                                            Text(
+                                              '${value.addressList[index].place} :${value.addressList[index].pin}',
+                                              style: const TextStyle(
+                                                  color:
+                                                      Kcolors.addressTextColor),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Mobile: ${value.addressList[index].phone}',
+                                                  style: const TextStyle(
+                                                      color: Kcolors
+                                                          .addressTextColor),
                                                 ),
-                                              ),
-                                              Ksize.kWsize10,
-                                              OutlinedButton(
+                                                Ksize.kWsize20,
+                                                OutlinedButton(
                                                   onPressed: () {
-                                                    value.deleteAddress(value
-                                                        .addressList[index].id);
-                                                    value.getAllAddress();
+                                                    value2.toEditAddressScreen(
+                                                        context,
+                                                        AddressScreenEnum
+                                                            .editAddressScreen,
+                                                        value.addressList[index]
+                                                            .id);
                                                   },
                                                   child: Row(
                                                     children: const [
-                                                      Icon(Icons.delete,
+                                                      Icon(Icons.edit,
                                                           size: 20,
                                                           color: Colors.black),
-                                                      Text(
-                                                        'Remove',
-                                                        style: TextStyle(
+                                                      Text('Edit',
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .black)),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Ksize.kWsize10,
+                                                OutlinedButton(
+                                                    onPressed: () {
+                                                      value.deleteAddress(value
+                                                          .addressList[index]
+                                                          .id);
+                                                      value.getAllAddress();
+                                                    },
+                                                    child: Row(
+                                                      children: const [
+                                                        Icon(Icons.delete,
+                                                            size: 20,
                                                             color:
                                                                 Colors.black),
-                                                      )
-                                                    ],
-                                                  )),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ],
+                                                        Text(
+                                                          'Remove',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        )
+                                                      ],
+                                                    )),
+                                              ],
+                                            ),
+                                            index == value.selectIndex
+                                                ? Container(
+                                                    decoration: BoxDecoration(
+                                                        color: const Color
+                                                                .fromARGB(
+                                                            255, 226, 225, 225),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15)),
+                                                    height: 30,
+                                                    width: 60,
+                                                    child: Center(
+                                                        child: Text('Defualt')),
+                                                  )
+                                                : const SizedBox()
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

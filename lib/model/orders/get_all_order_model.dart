@@ -36,8 +36,8 @@ class GetOrderModel {
   DateTime orderDate;
   DateTime deliveryDate;
   dynamic cancelDate;
-  int totalPrice;
-  int totalDiscount;
+  dynamic totalPrice;
+  dynamic totalDiscount;
 
   factory GetOrderModel.fromJson(Map<String, dynamic> json) => GetOrderModel(
         id: json["_id"],
@@ -73,9 +73,9 @@ class ProductElement {
   });
 
   Product product;
-  int qty;
-  int price;
-  int discountPrice;
+  dynamic qty;
+  dynamic price;
+  dynamic discountPrice;
   String size;
   String id;
 
@@ -104,9 +104,9 @@ class Product {
 
   String id;
   String name;
-  int price;
-  int discountPrice;
-  int offer;
+  dynamic price;
+  dynamic discountPrice;
+  dynamic offer;
   String rating;
   List<String> size;
   List<String> image;

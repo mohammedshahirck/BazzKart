@@ -1,11 +1,13 @@
 import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/address/add_address.dart';
+import 'package:ecommerce/controller/providers/address_controller/addaddress.dart';
 import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/order/order_control.dart';
 import 'package:ecommerce/controller/providers/payment/payment_controller.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
 import 'package:ecommerce/model/order_summery/order_summery.dart';
+import 'package:ecommerce/view/address_view/address_view.dart';
 import 'package:ecommerce/view/my_bag/widget/price_detail.dart';
 import 'package:ecommerce/view/order_page/widget/order_product.dart';
 import 'package:ecommerce/widgets/loading.dart';
@@ -52,9 +54,22 @@ class _OrderPageState extends State<OrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final paymentProvier =
+        Provider.of<PaymentController>(context, listen: false);
+    final cartprovider = Provider.of<CartController>(context, listen: false);
+    final addressProvider =
+        Provider.of<AddressController>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<OrderSummaryProvider>(context, listen: false)
           .getSingleCartProduct(context, widget.productId, widget.cartId);
+      paymentProvier.setAddressId(
+          addressProvider.addressList[addressProvider.selectIndex].id);
+      Provider.of<OrderSummaryProvider>(context, listen: false)
+          .productIds
+          .insert(
+              0,
+              cartprovider
+                  .cartitemsPayId[cartprovider.cartitemsPayId.length - 1]);
     });
     return Scaffold(
         backgroundColor: Kcolors.bgcolor,
@@ -174,7 +189,15 @@ class _OrderPageState extends State<OrderPage> {
                                                                 .width *
                                                             .7,
                                                     child: OutlinedButton(
-                                                        onPressed: () {},
+                                                        onPressed: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                            builder: (context) {
+                                                              return AddressView();
+                                                            },
+                                                          ));
+                                                        },
                                                         style: OutlinedButton
                                                             .styleFrom(
                                                                 backgroundColor:
@@ -284,39 +307,60 @@ class _OrderPageState extends State<OrderPage> {
                           ],
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: CustomBottomPlaceOrderWidget(
-                          ontap: () {
-                            paymentProvider.openCheckout(
-                              widget.screenEnumcheck ==
-                                      OrderSummaryScreenEnum
-                                          .normalOrderSummaryScreen
-                                  ? value.cartList!.totalPrice -
-                                      value.cartList!.totalDiscount.round()
-                                  : order.product[0].product.price -
-                                      order.product[0].product.discountPrice,
-                              context,
+                      Consumer<AddressController>(
+                          builder: (context, address, child) {
+                        return Align(
+                          alignment: Alignment.bottomCenter,
+                          child: CustomBottomPlaceOrderWidget(
+                            ontap: () {
+                              paymentProvider.setTotalAmount(
+                                widget.screenEnumcheck ==
+                                        OrderSummaryScreenEnum
+                                            .normalOrderSummaryScreen
+                                    ? int.parse((value.cartList!.totalPrice -
+                                            value.cartList!.totalDiscount)
+                                        .round()
+                                        .toString())
+                                    : int.parse((order.product[0].price -
+                                            order.product[0].discountPrice)
+                                        .round()
+                                        .toString()),
+                                widget.screenEnumcheck ==
+                                        OrderSummaryScreenEnum
+                                            .normalOrderSummaryScreen
+                                    ? value.cartitemsPayId
+                                    : order.productIds,
+                                address.addressList[address.selectIndex].id,
+                              );
+                              // paymentProvider.openCheckout(
+                              //   widget.screenEnumcheck ==
+                              //           OrderSummaryScreenEnum
+                              //               .normalOrderSummaryScreen
+                              //       ? value.cartList!.totalPrice -
+                              //           value.cartList!.totalDiscount.round()
+                              //       : order.product[0].product.price -
+                              //           order.product[0].product.discountPrice,
 
-                              // ((provider.price) - (provider.discountPrice))
-                              //     .toString(),
-                            );
-                          },
-                          totalAmount: (widget.screenEnumcheck ==
-                                  OrderSummaryScreenEnum
-                                      .normalOrderSummaryScreen
-                              ? (value.cartList!.totalPrice -
-                                      value.cartList!.totalDiscount)
-                                  .toStringAsFixed(0)
-                              : (order.product[0].product.price -
-                                      order.product[0].product.discountPrice)
-                                  .toStringAsFixed(0)),
-                          // (provider.price) - (provider.discountPrice)
-                          // )
-                          //   .toString(),
-                          textTitle: 'Continue',
-                        ),
-                      ),
+                              //   // ((provider.price) - (provider.discountPrice))
+                              //   //     .toString(),
+                              // );
+                            },
+                            totalAmount: (widget.screenEnumcheck ==
+                                    OrderSummaryScreenEnum
+                                        .normalOrderSummaryScreen
+                                ? (value.cartList!.totalPrice -
+                                        value.cartList!.totalDiscount)
+                                    .toStringAsFixed(0)
+                                : (order.product[0].product.price -
+                                        order.product[0].product.discountPrice)
+                                    .toStringAsFixed(0)),
+                            // (provider.price) - (provider.discountPrice)
+                            // )
+                            //   .toString(),
+                            textTitle: 'Continue',
+                          ),
+                        );
+                      }),
                     ],
                   ),
                 );

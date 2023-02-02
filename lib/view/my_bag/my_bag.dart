@@ -1,4 +1,6 @@
 import 'package:ecommerce/constants/api_url.dart';
+import 'package:ecommerce/controller/providers/address/add_address.dart';
+import 'package:ecommerce/controller/providers/address_controller/addaddress.dart';
 import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_controller.dart';
 import 'package:ecommerce/controller/providers/order/order_control.dart';
@@ -6,6 +8,8 @@ import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
 import 'package:ecommerce/model/order_summery/order_summery.dart';
+import 'package:ecommerce/view/address/address_screen.dart';
+import 'package:ecommerce/view/address_view/address_view.dart';
 import 'package:ecommerce/view/detail_page/detail_page.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_empty.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_pro_details.dart';
@@ -14,6 +18,7 @@ import 'package:ecommerce/view/my_bag/widget/price_detail.dart';
 import 'package:ecommerce/view/order_page/order_page.dart';
 import 'package:ecommerce/widgets/appbar.dart';
 import 'package:ecommerce/widgets/custom_bottom_placeorderwidget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -133,27 +138,47 @@ class MyBag extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: CustomBottomPlaceOrderWidget(
-                              ontap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const OrderPage(
-                                          screenEnumcheck:
-                                              OrderSummaryScreenEnum
-                                                  .normalOrderSummaryScreen,
-                                          cartId: "",
-                                          productId: ""),
-                                    ));
-                              },
-                              totalAmount: (cartc.cartList!.totalPrice -
-                                      cartc.cartList!.totalDiscount)
-                                  .toStringAsFixed(0),
-                              textTitle: 'Place Order',
-                            ),
-                          ),
+                          Consumer<AddressController>(
+                              builder: (context, address, child) {
+                            return Align(
+                                alignment: Alignment.bottomCenter,
+                                child: address.addressList.isEmpty
+                                    ? CustomBottomPlaceOrderWidget(
+                                        ontap: () {
+                                          Navigator.of(context)
+                                              .push(CupertinoPageRoute(
+                                            builder: (context) {
+                                              return const AddressView();
+                                            },
+                                          ));
+                                        },
+                                        totalAmount: (cartc
+                                                    .cartList!.totalPrice -
+                                                cartc.cartList!.totalDiscount)
+                                            .toStringAsFixed(0),
+                                        textTitle: 'Go To Address',
+                                      )
+                                    : CustomBottomPlaceOrderWidget(
+                                        ontap: () {
+                                          Navigator.of(context)
+                                              .push(CupertinoPageRoute(
+                                            builder: (context) {
+                                              return const OrderPage(
+                                                  screenEnumcheck:
+                                                      OrderSummaryScreenEnum
+                                                          .normalOrderSummaryScreen,
+                                                  cartId: '',
+                                                  productId: '');
+                                            },
+                                          ));
+                                        },
+                                        totalAmount: (cartc
+                                                    .cartList!.totalPrice -
+                                                cartc.cartList!.totalDiscount)
+                                            .toStringAsFixed(0),
+                                        textTitle: 'Place Order',
+                                      ));
+                          }),
                         ],
                       );
           }),

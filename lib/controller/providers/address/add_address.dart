@@ -23,6 +23,7 @@ class AddressController extends ChangeNotifier {
   AddNewAddressModel? address;
   String addressType = 'Home';
   String? addressGroupValue = 'address1';
+  int selectIndex = 0;
 
   AddressModel? singleAddress;
   String title = 'ADD NEW ADDRESS';
@@ -52,6 +53,11 @@ class AddressController extends ChangeNotifier {
       return 'Please enter valid pincode';
     }
     return null;
+  }
+
+  void addressSelect(int index) {
+    selectIndex = index;
+    notifyListeners();
   }
 
   String? tiTle(AddressScreenEnum addressScreenChecK) {

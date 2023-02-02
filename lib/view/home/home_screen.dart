@@ -11,7 +11,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import 'widget/shimmer_loading/categorey_shimmer.dart';
 import 'widget/shimmer_loading/product_shimmer.dart';
 

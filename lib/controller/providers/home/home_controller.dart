@@ -12,11 +12,32 @@ class HomeController with ChangeNotifier {
   }
   List<CategoryModel> categoryList = [];
   List<CarousalModel> carousalList = [];
+  List<ProductModel> searchresults = [];
   List<ProductModel> productList = [];
   final debouncer = Debouncer(milliseconds: 200);
   int activeindex = 0;
   void carosoul(index) {
     activeindex = index;
+    notifyListeners();
+  }
+
+  TextEditingController searchController = TextEditingController();
+
+  void search(String keyboard) {
+    List<ProductModel> results;
+    if (keyboard.isEmpty) {
+      results = productList;
+    } else {
+      results = productList
+          .where(
+            (element) => element.name.toLowerCase().contains(
+                  keyboard.toLowerCase(),
+                ),
+          )
+          .toList();
+    }
+
+    searchresults = results;
     notifyListeners();
   }
 
