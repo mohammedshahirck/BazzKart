@@ -1,8 +1,12 @@
 import 'dart:developer';
 import 'package:ecommerce/model/orders/place_order_model.dart';
 import 'package:ecommerce/services/order/order_service%20copy.dart';
+import 'package:ecommerce/view/oder_history/order_history.dart';
+import 'package:ecommerce/view/ordered_product_details/ordered_product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PaymentController with ChangeNotifier {
@@ -92,6 +96,7 @@ class PaymentController with ChangeNotifier {
       if (value != null) {
         isloading = false;
         notifyListeners();
+        Get.off(const OrderDetails());
       } else {
         isloading = false;
         notifyListeners();

@@ -50,21 +50,6 @@ class OrderDetails extends StatelessWidget {
                           color: Colors.black54,
                         ),
                       ),
-                      // ElevatedButton(
-                      //   style: ElevatedButton.styleFrom(
-                      //     backgroundColor: ,
-                      //     foregroundColor: whiteColor,
-                      //     elevation: 0,
-                      //   ),
-                      //   onPressed: () {
-                      //     Navigator.pop(context);
-
-                      //     Provider.of<BottomNavController>(context,
-                      //             listen: false)
-                      //         .gotoHomescreen();
-                      //   },
-                      //   child: const Text('Order Now'),
-                      // ),
                       CustomElevateButton(
                         size: 18,
                         text: 'Order Now',
