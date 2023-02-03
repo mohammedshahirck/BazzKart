@@ -9,6 +9,7 @@ import 'package:ecommerce/services/signup/signup_services.dart';
 import 'package:ecommerce/utils/api_base_url.dart';
 import 'package:ecommerce/view/signup/widget/otp_screen_argument.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SignUpController extends ChangeNotifier {
   bool passObscure = true;
@@ -22,6 +23,7 @@ class SignUpController extends ChangeNotifier {
   TextEditingController confirmPassword = TextEditingController();
 
   SignUpService signUpService = SignUpService();
+  FlutterSecureStorage storage = const FlutterSecureStorage();
 
   String? nameValidation(String? value) {
     if (value == null || value.isEmpty) {
@@ -98,7 +100,7 @@ class SignUpController extends ChangeNotifier {
           .then((value) async {
         if (value == null) {
           log('no user found');
-          await OtpServices().sendOtp(emailcontroller.text).then((value) {
+          await OtpServices().sendOtp(emailcontroller.text).then((value) async {
             log(value.toString());
             if (value != null) {
               Navigator.of(context)
@@ -107,6 +109,8 @@ class SignUpController extends ChangeNotifier {
                 isLoading = false;
                 notifyListeners();
               });
+              await storage.write(
+                  key: 'email', value: emailcontroller.text.toString());
             } else {
               return null;
             }

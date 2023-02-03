@@ -14,4 +14,5 @@ class ApiEndPoints {
   static const order = 'orders';
   static const address = 'address';
   static const logout = 'auth/logout';
+  static const user = 'users?email=';
 }

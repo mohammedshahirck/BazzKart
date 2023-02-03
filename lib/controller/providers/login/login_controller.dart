@@ -34,6 +34,8 @@ class LoginController extends ChangeNotifier {
         if (value != null) {
           await storage.write(key: 'token', value: value.accessToken);
           await storage.write(key: 'refreshToken', value: value.refreshToken);
+          await storage.write(
+              key: 'email', value: emailController.text.toString());
           Navigator.of(context)
               .pushNamedAndRemoveUntil(RouteNames.bottomNav, (route) => false);
           clearFields();

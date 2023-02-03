@@ -1,8 +1,6 @@
 import 'dart:developer';
 import 'package:ecommerce/model/orders/place_order_model.dart';
-import 'package:ecommerce/services/order/order_service.dart';
-import 'package:ecommerce/view/order_page/widget/order_product.dart';
-import 'package:ecommerce/widgets/navigation_class.dart';
+import 'package:ecommerce/services/order/order_service%20copy.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -59,21 +57,6 @@ class PaymentController with ChangeNotifier {
     }
   }
 
-  // void order(context) async {
-  //   RazorPayService().openRazorPay(razorpay, options);
-  // }
-
-  // void handlePaymentSuccess(PaymentSuccessResponse response) {
-  //   BazzToast.showToast("SUCCESS:${response.paymentId}", Colors.grey);
-  // }
-
-  // void handlePaymentError(PaymentFailureResponse response) {
-  //   BazzToast.showToast("${response.code}-${response.message}", Colors.grey);
-  // }
-
-  // void handleExternalWallet(ExternalWalletResponse response) {
-  //   BazzToast.showToast(' ${response.walletName}', Colors.grey);
-  // }
   void handlePaymentSuccess(PaymentSuccessResponse response) {
     Fluttertoast.showToast(
         msg: "SUCCESS:${response.paymentId}", timeInSecForIosWeb: 4);

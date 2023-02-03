@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ForgetController(),
         ),
         ChangeNotifierProvider(
-          create: (context) => LogoutController(),
+          create: (context) => ProfileController(),
         ),
         ChangeNotifierProvider(
           create: (context) => BottomNavController(),

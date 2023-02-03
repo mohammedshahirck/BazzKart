@@ -1,6 +1,5 @@
 import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/address/add_address.dart';
-import 'package:ecommerce/controller/providers/address_controller/addaddress.dart';
 import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_controller.dart';
 import 'package:ecommerce/controller/providers/order/order_control.dart';
@@ -8,7 +7,6 @@ import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
 import 'package:ecommerce/model/order_summery/order_summery.dart';
-import 'package:ecommerce/view/address/address_screen.dart';
 import 'package:ecommerce/view/address_view/address_view.dart';
 import 'package:ecommerce/view/detail_page/detail_page.dart';
 import 'package:ecommerce/view/my_bag/widget/cart_empty.dart';
