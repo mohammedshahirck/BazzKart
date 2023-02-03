@@ -48,7 +48,7 @@ class Account extends StatelessWidget {
       body: Consumer<ProfileController>(builder: (context, value, child) {
         return SafeArea(
           child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(children: [
               Container(
                 decoration: BoxDecoration(

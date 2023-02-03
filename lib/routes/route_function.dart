@@ -52,10 +52,6 @@ class PageRouts {
         return MaterialPageRoute(
           builder: (context) => const BottomNav(),
         );
-      case RouteNames.cartpage:
-        return MaterialPageRoute(
-          builder: (context) => const MyBag(),
-        );
       case RouteNames.addNewAddressScreen:
         final args = settings.arguments as AddNewAddressArguemnetModel;
         return MaterialPageRoute(

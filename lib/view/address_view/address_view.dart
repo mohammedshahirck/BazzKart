@@ -213,7 +213,7 @@ class AddressView extends StatelessWidget {
                                                                 .circular(15)),
                                                     height: 30,
                                                     width: 60,
-                                                    child: Center(
+                                                    child: const Center(
                                                         child: Text('Defualt')),
                                                   )
                                                 : const SizedBox()

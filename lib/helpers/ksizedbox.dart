@@ -44,7 +44,7 @@ class TextWithFamily extends StatelessWidget {
       title,
       style: TextStyle(
           letterSpacing: ls,
-          fontFamily: Theme.of(context).textTheme.subtitle1?.fontFamily,
+          fontFamily: Theme.of(context).textTheme.titleMedium?.fontFamily,
           color: colors,
           fontSize: fontsz,
           fontWeight: fontwght,
@@ -80,7 +80,7 @@ class TextTitle extends StatelessWidget {
       title,
       style: TextStyle(
         letterSpacing: ls,
-        fontFamily: Theme.of(context).textTheme.headline1?.fontFamily,
+        fontFamily: Theme.of(context).textTheme.displayLarge?.fontFamily,
         color: colors,
         fontSize: fontsz,
         fontWeight: fontwght,
@@ -115,7 +115,7 @@ class Titlete extends StatelessWidget {
       title,
       style: TextStyle(
         letterSpacing: ls,
-        fontFamily: Theme.of(context).textTheme.headline1?.fontFamily,
+        fontFamily: Theme.of(context).textTheme.displayLarge?.fontFamily,
         color: colors,
         fontSize: fontsz,
         fontWeight: fontwght,
