@@ -18,4 +18,9 @@ class BottomNavController extends ChangeNotifier {
     index = bottomIndex;
     notifyListeners();
   }
+
+  void gotoHomescreen() {
+    index = 0;
+    notifyListeners();
+  }
 }

@@ -7,6 +7,7 @@ import 'package:ecommerce/controller/providers/home/home_controller.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/login/login_controller.dart';
 import 'package:ecommerce/controller/providers/order/order_control.dart';
+import 'package:ecommerce/controller/providers/order_details/order_details_controller.dart';
 import 'package:ecommerce/controller/providers/otp/otp_controller.dart';
 import 'package:ecommerce/controller/providers/payment/payment_controller.dart';
 import 'package:ecommerce/controller/providers/profile/profile_controller.dart';
@@ -76,6 +77,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => OrderSummaryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OrderProvider(),
         ),
       ],
       child: MaterialApp(

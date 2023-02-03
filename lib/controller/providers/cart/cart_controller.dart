@@ -86,7 +86,7 @@ class CartController extends ChangeNotifier {
   }
 
   void totalProduct() {
-    int count = 0;
+    dynamic count = 0;
     for (var i = 0; i < cartList!.products.length; i++) {
       count = count + cartList!.products[i].qty;
     }
@@ -112,32 +112,26 @@ class CartController extends ChangeNotifier {
     });
   }
 
-  Future<void> incrementOrDecrementQuantity(
-    int qty,
-    String productId,
-    String productSize,
-    int productquantity,
-  ) async {
-    final AddToCartModel model = AddToCartModel(
-      size: productSize.toString(),
-      quantity: qty,
+  Future<void> incrementOrDecrementQuantity(int qty, String productId,
+      String productSize, int productquantity) async {
+    final AddToCartModel addToCartModel = AddToCartModel(
       productId: productId,
+      quantity: qty,
+      size: productSize.toString(),
     );
     if (qty == 1 && productquantity >= 1 || qty == -1 && productquantity > 1) {
-      await CartService().addToCart(model).then((value) async {
+      await CartService().addToCart(addToCartModel).then((value) async {
         if (value != null) {
           await CartService().getCart().then((value) {
             if (value != null) {
-              notifyListeners();
               cartList = value;
               notifyListeners();
               totalProduct();
               notifyListeners();
-              cartItemsId =
-                  cartList!.products.map((e) => e.product.id).toList();
+              // cartList = cartList!.products.map((e) => e.product.id).toList();
               notifyListeners();
-              totalSave =
-                  cartList!.totalDiscount - cartList!.totalPrice.toInt();
+              // totalSave =
+              //     (cartList!.totalPrice - cartList!.totalDiscount).toInt();
               notifyListeners();
             } else {
               null;

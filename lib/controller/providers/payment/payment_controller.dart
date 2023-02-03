@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:ecommerce/model/orders/place_order_model.dart';
 import 'package:ecommerce/services/order/order_service.dart';
+import 'package:ecommerce/view/order_page/widget/order_product.dart';
+import 'package:ecommerce/widgets/navigation_class.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -107,16 +109,6 @@ class PaymentController with ChangeNotifier {
       if (value != null) {
         isloading = false;
         notifyListeners();
-
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return OrderDetails(
-        //         args: args,
-        //       );
-        //     },
-        //   ),
-        // );
       } else {
         isloading = false;
         notifyListeners();

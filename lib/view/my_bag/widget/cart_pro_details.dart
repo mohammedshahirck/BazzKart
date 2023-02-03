@@ -139,6 +139,7 @@ class CartProductDetails extends StatelessWidget {
                         context,
                         cartc.cartList!.products[index].product.id,
                         cartc.cartList!.id);
+                    order.loading = true;
                   },
                 ),
               )

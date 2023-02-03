@@ -1,6 +1,5 @@
 import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/address/add_address.dart';
-import 'package:ecommerce/controller/providers/address_controller/addaddress.dart';
 import 'package:ecommerce/controller/providers/cart/cart_controller.dart';
 import 'package:ecommerce/controller/providers/order/order_control.dart';
 import 'package:ecommerce/controller/providers/payment/payment_controller.dart';
@@ -13,7 +12,6 @@ import 'package:ecommerce/view/order_page/widget/order_product.dart';
 import 'package:ecommerce/widgets/loading.dart';
 import 'package:ecommerce/widgets/text_style.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -133,7 +131,7 @@ class _OrderPageState extends State<OrderPage> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Delivery to ${value.addressList[0].fullName},  ${value.addressList[0].pin}',
+                                                      'Delivery to ${value.addressList[value.selectIndex].fullName},  ${value.addressList[value.selectIndex].pin}',
                                                       style: SafeGoogleFont(
                                                         'Metropolis',
                                                         fontSize: 16,
@@ -148,31 +146,41 @@ class _OrderPageState extends State<OrderPage> {
                                                     Text(value
                                                             .addressList.isEmpty
                                                         ? ""
-                                                        : value.addressList[0]
+                                                        : value
+                                                            .addressList[value
+                                                                .selectIndex]
                                                             .fullName),
                                                     Ksize.ksize5,
                                                     Text(value
                                                             .addressList.isEmpty
                                                         ? ""
-                                                        : value.addressList[0]
+                                                        : value
+                                                            .addressList[value
+                                                                .selectIndex]
                                                             .address),
                                                     Ksize.ksize5,
                                                     Text(value
                                                             .addressList.isEmpty
                                                         ? ""
-                                                        : value.addressList[0]
+                                                        : value
+                                                            .addressList[value
+                                                                .selectIndex]
                                                             .place),
                                                     Ksize.ksize5,
                                                     Text(value
                                                             .addressList.isEmpty
                                                         ? ""
-                                                        : value.addressList[0]
+                                                        : value
+                                                            .addressList[value
+                                                                .selectIndex]
                                                             .landMark),
                                                     Ksize.ksize5,
                                                     Text(value
                                                             .addressList.isEmpty
                                                         ? ""
-                                                        : value.addressList[0]
+                                                        : value
+                                                            .addressList[value
+                                                                .selectIndex]
                                                             .phone),
                                                     Ksize.ksize5,
                                                   ],
@@ -194,7 +202,7 @@ class _OrderPageState extends State<OrderPage> {
                                                               context,
                                                               MaterialPageRoute(
                                                             builder: (context) {
-                                                              return AddressView();
+                                                              return const AddressView();
                                                             },
                                                           ));
                                                         },
@@ -354,9 +362,6 @@ class _OrderPageState extends State<OrderPage> {
                                 : (order.product[0].product.price -
                                         order.product[0].product.discountPrice)
                                     .toStringAsFixed(0)),
-                            // (provider.price) - (provider.discountPrice)
-                            // )
-                            //   .toString(),
                             textTitle: 'Continue',
                           ),
                         );

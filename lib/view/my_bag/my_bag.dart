@@ -27,6 +27,9 @@ class MyBag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<CartController>(context, listen: false).getCart();
+    });
     return Scaffold(
       backgroundColor: Kcolors.bgcolor,
       appBar: const PreferredSize(
@@ -171,6 +174,7 @@ class MyBag extends StatelessWidget {
                                                   productId: '');
                                             },
                                           ));
+                                          order.loading = false;
                                         },
                                         totalAmount: (cartc
                                                     .cartList!.totalPrice -

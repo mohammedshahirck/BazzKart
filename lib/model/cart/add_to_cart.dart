@@ -1,6 +1,6 @@
 class AddToCartModel {
   final String size;
-  final int quantity;
+  final dynamic quantity;
   final String productId;
 
   AddToCartModel({
