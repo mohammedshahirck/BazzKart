@@ -34,8 +34,6 @@ class CartController extends ChangeNotifier {
         if (value != null) {
           cartList = value;
           notifyListeners();
-
-          log('get cart');
           cartItemsId = cartList!.products.map((e) => e.product.id).toList();
           cartitemsPayId = cartList!.products.map((e) => e.id).toList();
           totalSave =
@@ -53,7 +51,6 @@ class CartController extends ChangeNotifier {
 
   Future<void> addToCart(String productId, String? productSize,
       OrderSummaryScreenEnum? screencheck) async {
-    log('addtocart');
     if (productSize == null) {
       BazzToast.showToast('Select Size', Colors.grey);
     } else {
@@ -127,11 +124,6 @@ class CartController extends ChangeNotifier {
               cartList = value;
               notifyListeners();
               totalProduct();
-              notifyListeners();
-              // cartList = cartList!.products.map((e) => e.product.id).toList();
-              notifyListeners();
-              // totalSave =
-              //     (cartList!.totalPrice - cartList!.totalDiscount).toInt();
               notifyListeners();
             } else {
               null;

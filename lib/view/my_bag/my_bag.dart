@@ -125,16 +125,19 @@ class MyBag extends StatelessWidget {
                                   ),
                                   Ksize.ksize40,
                                   PriceDetailsWidget(
-                                      itemCount:
-                                          cartc.totalProductCount.toString(),
-                                      amount:
-                                          cartc.cartList!.totalPrice.toString(),
-                                      discount: cartc.cartList!.totalDiscount
-                                          .toStringAsFixed(0),
-                                      deliveryCharge: 'Free',
-                                      totalAmount: (cartc.cartList!.totalPrice -
-                                              cartc.cartList!.totalDiscount)
-                                          .toStringAsFixed(0)),
+                                    itemCount:
+                                        cartc.totalProductCount.toString(),
+                                    amount:
+                                        cartc.cartList!.totalPrice.toString(),
+                                    discount: cartc.cartList!.totalDiscount
+                                        .toStringAsFixed(0),
+                                    deliveryCharge: 'Free',
+                                    totalAmount: (cartc.cartList!.totalPrice -
+                                            cartc.cartList!.totalDiscount)
+                                        .toStringAsFixed(0),
+                                  ),
+                                  Ksize.ksize80,
+                                  Ksize.ksize80,
                                 ],
                               ),
                             ),

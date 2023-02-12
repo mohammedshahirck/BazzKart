@@ -36,27 +36,6 @@ class ProductDetailPage extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        // actions: [
-        //   Consumer<WishlistProvider>(builder: (context, value, child) {
-        //     return GestureDetector(
-        //       onTap: () => value.addRemoveWishlistItem(
-        //         loadProduct.id,
-        //       ),
-        //       child: CircleAvatar(
-        //         backgroundColor: Colors.white,
-        //         child: Icon(
-        //           value.favorProduct.contains(loadProduct.id)
-        //               ? Icons.favorite
-        //               : Icons.favorite_outline_outlined,
-        //           color: value.favorProduct.contains(loadProduct.id)
-        //               ? Colors.red
-        //               : Colors.black,
-        //           size: 30,
-        //         ),
-        //       ),
-        //     );
-        //   }),
-        // ],
       ),
       backgroundColor: const Color.fromARGB(255, 233, 231, 231).withOpacity(1),
       body: SafeArea(

@@ -1,18 +1,17 @@
 import 'package:ecommerce/controller/providers/profile/profile_controller.dart';
 import 'package:ecommerce/helpers/kcolors.dart';
 import 'package:ecommerce/helpers/ksizedbox.dart';
+import 'package:ecommerce/view/account/widgets/profile_list_tile.dart';
 import 'package:ecommerce/view/account/widgets/user_details_text.dart';
 import 'package:ecommerce/view/address_view/address_view.dart';
 import 'package:ecommerce/view/oder_history/order_history.dart';
 import 'package:ecommerce/widgets/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:provider/provider.dart';
 
 class Account extends StatelessWidget {
   const Account({super.key});
-
   @override
   Widget build(BuildContext context) {
     final userDetails = Provider.of<ProfileController>(context, listen: false);
@@ -35,8 +34,6 @@ class Account extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                   height: 1.5,
                   color: Colors.black,
-
-                  // const Color(0xff222222),
                 ),
               ),
             ],
@@ -57,24 +54,41 @@ class Account extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 width: double.infinity,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
+                      children: const [
+                        Ksize.ksize20,
+                        CircleAvatar(
+                          backgroundColor: Color.fromARGB(255, 213, 215, 216),
+                          radius: 35,
+                          child: Icon(
+                            Icons.person,
+                            size: 60,
+                            color: Color.fromARGB(255, 80, 156, 191),
+                          ),
+                        ),
+                        Ksize.ksize20,
+                      ],
+                    ),
+                    Ksize.kWsize10,
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         UserDetialsText(
-                          title: "Name",
                           result: value.userModel?.fullname ?? '',
                         ),
+                        Ksize.ksize5,
                         UserDetialsText(
-                          title: "Email",
+                          // title: "Email",
                           result: value.userModel?.email ?? "",
                         ),
+                        Ksize.ksize5,
                         UserDetialsText(
-                          title: "Number",
+                          // title: "Number",
                           result: value.userModel?.phone ?? "",
-                        )
+                        ),
+                        Ksize.ksize5,
                       ],
                     ),
                   ],
@@ -82,7 +96,7 @@ class Account extends StatelessWidget {
               ),
               ProfileListTile(
                 icon: FontAwesomeIcons.box,
-                title: 'Orders',
+                title: 'My orders',
                 ontap: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
@@ -92,12 +106,7 @@ class Account extends StatelessWidget {
                 },
               ),
               ProfileListTile(
-                title: 'About Us',
-                icon: FontAwesomeIcons.info,
-                ontap: () {},
-              ),
-              ProfileListTile(
-                title: 'Address',
+                title: 'Shipping addresses',
                 icon: FontAwesomeIcons.mapLocation,
                 ontap: () {
                   Navigator.push(context, MaterialPageRoute(
@@ -106,6 +115,11 @@ class Account extends StatelessWidget {
                     },
                   ));
                 },
+              ),
+              ProfileListTile(
+                title: 'About Us',
+                icon: FontAwesomeIcons.info,
+                ontap: () {},
               ),
               Consumer<ProfileController>(builder: (context, value, child) {
                 return ProfileListTile(
@@ -141,56 +155,6 @@ class Account extends StatelessWidget {
           ),
         );
       }),
-    );
-  }
-}
-
-class ProfileListTile extends StatelessWidget {
-  const ProfileListTile({
-    super.key,
-    required this.title,
-    required this.icon,
-    required this.ontap,
-  });
-  final String title;
-  final IconData icon;
-  final VoidCallback ontap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListTile(
-          onTap: ontap,
-          title: Row(
-            children: [
-              Icon(
-                icon,
-                color: Colors.black,
-              ),
-              Ksize.kWsize30,
-              Ksize.kWsize30,
-              Ksize.kWsize30,
-              Text(
-                title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-            ],
-          ),
-          trailing: const Icon(
-            Icons.arrow_forward_ios,
-            size: 14,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(left: 30, right: 30),
-          child: Divider(
-            thickness: 1,
-          ),
-        ),
-        Ksize.ksize10
-      ],
     );
   }
 }

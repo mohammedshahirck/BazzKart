@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 class UserDetialsText extends StatelessWidget {
   const UserDetialsText({
     super.key,
-    required this.title,
+    // required this.title,
     required this.result,
   });
-  final String title;
+  // final String title;
   final String result;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      '$title : $result',
+      // '$title :
+      ' $result',
       style: const TextStyle(
         fontWeight: FontWeight.w500,
         color: Colors.black,

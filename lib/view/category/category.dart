@@ -57,7 +57,7 @@ class Categorys extends StatelessWidget {
                                 "http://${MainUrls.url}/products/${productCategory[index].image[0]}",
                             name: productCategory[index].name,
                             price:
-                                "${(productCategory[index].price) - (productCategory[index].discountPrice)}",
+                                "${((productCategory[index].price) - (productCategory[index].discountPrice)).round()}",
                             offer: productCategory[index].offer.toString(),
                             rating: productCategory[index].rating,
                             argument: productCategory[index].id),

@@ -72,7 +72,7 @@ class _OrderPageState extends State<OrderPage> {
     return Scaffold(
         backgroundColor: Kcolors.bgcolor,
         appBar: AppBar(
-          elevation: 1,
+          elevation: 2,
           backgroundColor: Kcolors.bgcolor,
           title: Text(
             'Review Order',
@@ -98,7 +98,7 @@ class _OrderPageState extends State<OrderPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Ksize.ksize40,
+                            Ksize.ksize10,
                             Consumer<AddressController>(
                                 builder: (context, value, child) {
                               return value.isLoading == true

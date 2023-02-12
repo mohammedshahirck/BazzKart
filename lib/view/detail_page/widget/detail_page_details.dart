@@ -37,7 +37,8 @@ class DetailPageDetails extends StatelessWidget {
             Ksize.ksize10,
             Row(
               children: [
-                Text("₹${(loadProduct.price) - (loadProduct.discountPrice)}"),
+                Text(
+                    "₹${((loadProduct.price) - (loadProduct.discountPrice)).round()}"),
                 Ksize.kWsize10,
                 Text(
                   "₹${loadProduct.price.toString()}",

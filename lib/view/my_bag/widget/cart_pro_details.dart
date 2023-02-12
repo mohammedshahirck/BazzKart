@@ -114,7 +114,6 @@ class CartProductDetails extends StatelessWidget {
                     quantity: cartc.cartList!.products[index].qty,
                   ),
                   Ksize.kWsize20,
-                  Ksize.kWsize20,
                   RemoveFromMybagButton(
                     ontap: () {
                       cartc.removeFromCart(

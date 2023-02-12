@@ -16,7 +16,7 @@ class BottomNav extends StatelessWidget {
         bottomNavigationBar: NavigationBarTheme(
           data: NavigationBarThemeData(
             // indicatorColor: Colors.black,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             labelTextStyle: MaterialStateProperty.all(
               const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
@@ -26,7 +26,7 @@ class BottomNav extends StatelessWidget {
             height: 75,
             labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
             selectedIndex: bottomNavcontroller.index,
-            backgroundColor: Kcolors.bgcolor,
+            backgroundColor: Colors.white,
             animationDuration: const Duration(),
             onDestinationSelected: (bottomIndex) =>
                 bottomNavcontroller.bottomIndex(bottomIndex),
@@ -73,7 +73,7 @@ class BottomNav extends StatelessWidget {
                   color: Colors.grey,
                   size: 30,
                 ),
-                label: 'Account',
+                label: 'Profile',
                 selectedIcon: Icon(
                   Icons.person,
                   color: Colors.black,

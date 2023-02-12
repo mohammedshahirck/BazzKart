@@ -67,6 +67,10 @@ class AddressView extends StatelessWidget {
                                 child: InkWell(
                                   onTap: () {
                                     value.addressSelect(index);
+                                    value2.toEditAddressScreen(
+                                        context,
+                                        AddressScreenEnum.editAddressScreen,
+                                        value.addressList[index].id);
                                   },
                                   child: Container(
                                     //
@@ -76,8 +80,7 @@ class AddressView extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     width: double.infinity,
-                                    height: MediaQuery.of(context).size.height *
-                                        .22,
+
                                     child: Row(
                                       children: [
                                         Ksize.kWsize10,
@@ -157,28 +160,8 @@ class AddressView extends StatelessWidget {
                                                           .addressTextColor),
                                                 ),
                                                 Ksize.kWsize20,
-                                                OutlinedButton(
-                                                  onPressed: () {
-                                                    value2.toEditAddressScreen(
-                                                        context,
-                                                        AddressScreenEnum
-                                                            .editAddressScreen,
-                                                        value.addressList[index]
-                                                            .id);
-                                                  },
-                                                  child: Row(
-                                                    children: const [
-                                                      Icon(Icons.edit,
-                                                          size: 20,
-                                                          color: Colors.black),
-                                                      Text('Edit',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black)),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Ksize.kWsize10,
+                                                Ksize.kWsize30,
+                                                Ksize.kWsize20,
                                                 OutlinedButton(
                                                     onPressed: () {
                                                       value.deleteAddress(value
@@ -216,7 +199,8 @@ class AddressView extends StatelessWidget {
                                                     child: const Center(
                                                         child: Text('Defualt')),
                                                   )
-                                                : const SizedBox()
+                                                : const SizedBox(),
+                                            Ksize.ksize10,
                                           ],
                                         ),
                                       ],

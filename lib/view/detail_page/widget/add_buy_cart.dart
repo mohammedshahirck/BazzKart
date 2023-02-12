@@ -40,15 +40,6 @@ class AddBuyAndCart extends StatelessWidget {
                       value4.addRemoveWishlistItem(
                         loadProduct.id,
                       );
-                      // value2.cartItemsId.contains(value.product?.id)
-                      //     ? value.goToCartpage(context)
-                      //     : value2.addToCart(
-                      //         loadProduct.id,
-                      //         value.productSize,
-                      //         OrderSummaryScreenEnum
-                      //             .buyOneProductOrderSummaryScreen);
-                      // value.gotoOrderpage(
-                      //     productId, context, value.productSize.toString());
                     },
                   ),
                 ),

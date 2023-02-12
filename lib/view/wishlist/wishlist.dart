@@ -59,164 +59,220 @@ class Favorites extends StatelessWidget {
           backgroundColor: Kcolors.bgcolor,
         ),
       ),
-      body: ListView(
-        children: [
-          Consumer2<HomeProductController, WishlistProvider>(
-              builder: (context, prodValue, wishvalue, child) {
-            return wishvalue.isLoading == true
+      body: Consumer2<HomeProductController, WishlistProvider>(
+          builder: (context, prodValue, wishvalue, child) {
+        return wishvalue.isLoading == true
+            ? SizedBox(
+                height: MediaQuery.of(context).size.height / 1.3,
+                width: double.infinity,
+                child: const Center(
+                  child: LoadingWidget(
+                    color: Colors.black,
+                  ),
+                ),
+              )
+            : wishvalue.wishList == null || wishvalue.wishList!.products.isEmpty
                 ? SizedBox(
                     height: MediaQuery.of(context).size.height / 1.3,
                     width: double.infinity,
-                    child: const Center(
-                      child: LoadingWidget(
-                        color: Colors.black,
-                      ),
-                    ),
+                    child: const Center(child: ReloadWishlist()),
                   )
-                : wishvalue.wishList == null ||
-                        wishvalue.wishList!.products.isEmpty
-                    ? SizedBox(
-                        height: MediaQuery.of(context).size.height / 1.3,
-                        width: double.infinity,
-                        child: const Center(child: ReloadWishlist()),
-                      )
-                    : GridView.builder(
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.only(left: 20, top: 20),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 1,
-                          childAspectRatio: 1.1 / 2,
+                : GridView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.only(left: 20, top: 20),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 1,
+                      childAspectRatio: 1.1 / 2,
+                    ),
+                    // itemCount: ,
+                    itemCount: wishvalue.wishList!.products.length,
+                    itemBuilder: (context, index) {
+                      log('gridview');
+                      return GestureDetector(
+                        onTap: () => Navigator.of(context).pushNamed(
+                          ProductDetailPage.routeNames,
+                          arguments:
+                              wishvalue.wishList!.products[index].product.id,
                         ),
-                        // itemCount: ,
-                        itemCount: wishvalue.wishList!.products.length,
-                        itemBuilder: (context, index) {
-                          log('gridview');
-                          return GestureDetector(
-                            onTap: () => Navigator.of(context).pushNamed(
-                              ProductDetailPage.routeNames,
-                              arguments: wishvalue
-                                  .wishList!.products[index].product.id,
-                            ),
-                            child: SizedBox(
-                              width: 170,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                                255, 233, 231, 231)
+                        child: SizedBox(
+                          width: 170,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromARGB(255, 233, 231, 231)
                                             .withOpacity(1),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              .29,
-                                      width: MediaQuery.of(context).size.width *
-                                          .43,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: GestureDetector(
-                                              onTap: () => showDialog<String>(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        AlertDialog(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20)),
-                                                  title: const Text(
-                                                      ' Remove from wishlist?'),
-                                                  content: const Text(
-                                                      'Are you sure to delete this product from wishlist?'),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              context, 'NO'),
-                                                      child: const Text('No'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        wishvalue
-                                                            .addRemoveWishlistItem(
-                                                                wishvalue
-                                                                    .wishList!
-                                                                    .products[
-                                                                        index]
-                                                                    .product
-                                                                    .id);
-                                                        Navigator.pop(
-                                                          context,
-                                                          'Yes',
-                                                        );
-                                                      },
-                                                      child: const Text('Yes'),
-                                                    ),
-                                                  ],
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  height:
+                                      MediaQuery.of(context).size.height * .29,
+                                  width:
+                                      MediaQuery.of(context).size.width * .43,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                          onTap: () => showDialog<String>(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              title: const Text(
+                                                  ' Remove from wishlist?'),
+                                              content: const Text(
+                                                  'Are you sure to delete this product from wishlist?'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, 'NO'),
+                                                  child: const Text('No'),
                                                 ),
-                                              ),
-                                              child: const Icon(
-                                                Icons.favorite,
-                                                color: Colors.red,
-                                              ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    wishvalue
+                                                        .addRemoveWishlistItem(
+                                                            wishvalue
+                                                                .wishList!
+                                                                .products[index]
+                                                                .product
+                                                                .id);
+                                                    Navigator.pop(
+                                                      context,
+                                                      'Yes',
+                                                    );
+                                                  },
+                                                  child: const Text('Yes'),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          Image.network(
-                                            "http://${MainUrls.url}/products/${wishvalue.wishList!.products[index].product.image[0]}",
-                                            height: 200,
-                                          )
-                                        ],
-                                      )
-                                      //  170,
+                                          child: const Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                          ),
+                                        ),
                                       ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      Image.network(
+                                        "http://${MainUrls.url}/products/${wishvalue.wishList!.products[index].product.image[0]}",
+                                        height: 200,
+                                      )
+                                    ],
+                                  )
+                                  //  170,
+                                  ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(12.0),
+                              //   child: Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       Text(
+
+                              //         overflow: TextOverflow.ellipsis,
+                              //         maxLines: 1,
+                              //         style: SafeGoogleFont(
+                              //           'Metropolis',
+                              //           fontSize: 17,
+                              //           fontWeight: FontWeight.w600,
+                              //           height: 1.2575,
+                              //           color: const Color(
+                              //             0xff222222,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //       Row(
+                              //         children: [
+                              //           Text(''),
+                              //           Text(
+                              //             ((wishvalue.wishList!.products[index]
+                              //                         .product.price) -
+                              //                     (wishvalue
+                              //                         .wishList!
+                              //                         .products[index]
+                              //                         .product
+                              //                         .discountPrice))
+                              //                 .toString(),
+                              //             style: const TextStyle(),
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      wishvalue.wishList!.products[index]
+                                          .product.name,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: SafeGoogleFont(
+                                        'Metropolis',
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600,
+                                        height: 1.2575,
+                                        color: const Color(
+                                          0xff222222,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          wishvalue.wishList!.products[index]
-                                              .product.name,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: SafeGoogleFont(
-                                            'Metropolis',
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w600,
-                                            height: 1.2575,
-                                            color: const Color(
-                                              0xff222222,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          wishvalue.wishList!.products[index]
-                                              .product.discountPrice
+                                          ((wishvalue.wishList!.products[index]
+                                                      .product.price) -
+                                                  wishvalue
+                                                      .wishList!
+                                                      .products[index]
+                                                      .product
+                                                      .discountPrice)
+                                              .round()
                                               .toString(),
+                                          //
                                           style: const TextStyle(),
                                         ),
+                                        Text(
+                                          "${wishvalue.wishList!.products[index].product.offer}%off",
+                                          style: const TextStyle(
+                                              color: Colors.green),
+                                        )
                                       ],
                                     ),
-                                  ),
-                                ],
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.star,
+                                          color: Colors.yellow,
+                                        ),
+                                        Text(wishvalue.wishList!.products[index]
+                                            .product.rating)
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            ],
+                          ),
+                        ),
                       );
-          }),
-        ],
-      ),
+                    },
+                  );
+      }),
     );
   }
 }
