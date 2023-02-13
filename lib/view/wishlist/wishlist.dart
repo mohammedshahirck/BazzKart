@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:ecommerce/constants/api_url.dart';
 import 'package:ecommerce/controller/providers/home/home_product.dart';
 import 'package:ecommerce/controller/providers/wishlist/wishlist.dart';
@@ -89,7 +88,6 @@ class Favorites extends StatelessWidget {
                     // itemCount: ,
                     itemCount: wishvalue.wishList!.products.length,
                     itemBuilder: (context, index) {
-                      log('gridview');
                       return GestureDetector(
                         onTap: () => Navigator.of(context).pushNamed(
                           ProductDetailPage.routeNames,
@@ -171,44 +169,6 @@ class Favorites extends StatelessWidget {
                                   )
                                   //  170,
                                   ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(12.0),
-                              //   child: Column(
-                              //     crossAxisAlignment: CrossAxisAlignment.start,
-                              //     children: [
-                              //       Text(
-
-                              //         overflow: TextOverflow.ellipsis,
-                              //         maxLines: 1,
-                              //         style: SafeGoogleFont(
-                              //           'Metropolis',
-                              //           fontSize: 17,
-                              //           fontWeight: FontWeight.w600,
-                              //           height: 1.2575,
-                              //           color: const Color(
-                              //             0xff222222,
-                              //           ),
-                              //         ),
-                              //       ),
-                              //       Row(
-                              //         children: [
-                              //           Text(''),
-                              //           Text(
-                              //             ((wishvalue.wishList!.products[index]
-                              //                         .product.price) -
-                              //                     (wishvalue
-                              //                         .wishList!
-                              //                         .products[index]
-                              //                         .product
-                              //                         .discountPrice))
-                              //                 .toString(),
-                              //             style: const TextStyle(),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
                               Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: Column(

@@ -12,10 +12,8 @@ class WishlistServices {
     try {
       final Response response =
           await dio.get(MainUrls.baseUrl + ApiEndPoints.wishList);
-      log(response.data.toString());
+
       if (response.statusCode == 200) {
-        log('message');
-        log(response.data.toString());
         final WishListModel model = WishListModel.fromJson(response.data);
         return model;
       }

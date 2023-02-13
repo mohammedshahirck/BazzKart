@@ -20,7 +20,6 @@ class HomeProduct {
         return products;
       }
     } on DioError catch (e) {
-      log(e.message);
       BazzException.errorHandler(e);
     }
     return null;

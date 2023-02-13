@@ -42,7 +42,6 @@ class OtpController extends ChangeNotifier {
   }
 
   void verifyCode(context, SignUpModel model, OtpScreenEnum screenChek) async {
-    log('verifyOtpcodefun');
     if (code.length != 4) {
       BazzToast.showToast('Please enter OTP', Colors.grey);
     } else {

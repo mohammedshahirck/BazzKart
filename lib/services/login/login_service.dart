@@ -19,7 +19,6 @@ class SignInService {
       );
 
       if (response.statusCode == 200) {
-        log(response.data.toString());
         final LoginInArgModel model = LoginInArgModel.fromJson(response.data);
         return model;
       }

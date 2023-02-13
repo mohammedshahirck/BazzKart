@@ -12,7 +12,6 @@ class SignUpService {
   Dio dio = Dio();
   Future<SignUpTokenModel?> signUpService(
       SignUpModel model, BuildContext context) async {
-    log(model.toString());
     try {
       log('call');
       Response response = await dio.post(MainUrls.baseUrl + ApiEndPoints.signUp,
@@ -21,7 +20,7 @@ class SignUpService {
             'Content-type': 'application/json',
             'Accept': 'application/json',
           });
-      log(response.data.toString());
+
       if (response.statusCode! >= 200 && response.statusCode! <= 299) {
         final SignUpTokenModel model = SignUpTokenModel.fromJson(response.data);
         return model;

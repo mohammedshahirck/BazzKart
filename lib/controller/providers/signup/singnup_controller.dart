@@ -83,7 +83,6 @@ class SignUpController extends ChangeNotifier {
   }
 
   void registerUser(context, FormState currentState) async {
-    log('registercall');
     final SignUpModel user = SignUpModel(
       username: usernamecontroller.text,
       email: emailcontroller.text,
@@ -99,7 +98,6 @@ class SignUpController extends ChangeNotifier {
           .userCheck(emailcontroller.text)
           .then((value) async {
         if (value == null) {
-          log('no user found');
           await OtpServices().sendOtp(emailcontroller.text).then((value) async {
             log(value.toString());
             if (value != null) {

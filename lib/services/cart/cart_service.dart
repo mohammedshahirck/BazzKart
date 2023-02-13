@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:ecommerce/constants/api_endpoints.dart';
 import 'package:ecommerce/constants/api_url.dart';
@@ -54,8 +53,6 @@ class CartService {
         return null;
       } else if (response.statusCode == 200 || response.statusCode == 201) {
         final CartModel model = CartModel.fromJson(response.data);
-        log(response.data.toString());
-        log(model.toString());
         return model;
       }
     } on DioError catch (e) {
@@ -78,7 +75,6 @@ class CartService {
         return remove;
       }
     } on DioError catch (e) {
-      log(e.message);
       BazzException.errorHandler(e);
     }
     return null;
@@ -99,12 +95,10 @@ class CartService {
               .map((e) => GetSingelCartProduct.fromJson(e))
               .toList();
 
-          log(response.data.toString());
           return model;
         }
       }
     } on DioError catch (e) {
-      log(e.message);
       BazzException.errorHandler(e);
     }
     return null;

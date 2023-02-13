@@ -10,7 +10,6 @@ class OtpServices {
   Dio dio = Dio();
   Future<String?> verifyOtp(email, otpNumber) async {
     try {
-      log('verifyOtp');
       Response response = await dio.post(
         MainUrls.baseUrl + ApiEndPoints.verifySendotp,
         data: {
@@ -30,7 +29,6 @@ class OtpServices {
 
   Future<String?> sendOtp(email) async {
     try {
-      log('sendOtp');
       Response response = await dio.get(
         MainUrls.baseUrl + ApiEndPoints.verifySendotp,
         queryParameters: {

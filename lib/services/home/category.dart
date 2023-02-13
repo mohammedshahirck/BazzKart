@@ -21,7 +21,6 @@ class CategoryServices {
         return category;
       }
     } on DioError catch (e) {
-      log(e.message);
       BazzException.errorHandler(e);
     }
     return null;

@@ -13,7 +13,7 @@ class BazzException {
     if (e is SocketException) {
       BazzToast.showToast('No Internet Connection', Colors.red);
     } else if (e is TimeoutException) {
-      BazzToast.showToast('Connection Timeout', Colors.grey);
+      BazzToast.showToast('Connection Timeout', Colors.black);
     } else if (e is MissingPluginException) {
       BazzToast.showToast('Pluggin error occured', Colors.grey);
     } else if (e is DioError) {
